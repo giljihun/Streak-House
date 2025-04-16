@@ -15,6 +15,7 @@
 		4CFD9E7E2DAFE6390011D191 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFD9E7D2DAFE6390011D191 /* FirebaseFunctions */; };
 		4CFD9E802DAFE6390011D191 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFD9E7F2DAFE6390011D191 /* FirebaseMessaging */; };
 		4CFD9E822DAFE6390011D191 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFD9E812DAFE6390011D191 /* FirebaseStorage */; };
+		4CFD9E8B2DAFF4550011D191 /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFD9E8A2DAFF4550011D191 /* DotLottie */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 				4CFD9E802DAFE6390011D191 /* FirebaseMessaging in Frameworks */,
 				4CFD9E782DAFE6390011D191 /* FirebaseCore in Frameworks */,
 				4CFD9E7E2DAFE6390011D191 /* FirebaseFunctions in Frameworks */,
+				4CFD9E8B2DAFF4550011D191 /* DotLottie in Frameworks */,
 				4CFD9E822DAFE6390011D191 /* FirebaseStorage in Frameworks */,
 				4CFD9E7C2DAFE6390011D191 /* FirebaseFirestore in Frameworks */,
 				4CFD9E762DAFE6390011D191 /* FirebaseAuth in Frameworks */,
@@ -92,6 +94,7 @@
 				4CFD9E7D2DAFE6390011D191 /* FirebaseFunctions */,
 				4CFD9E7F2DAFE6390011D191 /* FirebaseMessaging */,
 				4CFD9E812DAFE6390011D191 /* FirebaseStorage */,
+				4CFD9E8A2DAFF4550011D191 /* DotLottie */,
 			);
 			productName = "Streak House";
 			productReference = 4CFD9E4D2DAFE0A90011D191 /* Streak House.app */;
@@ -123,6 +126,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				4CFD9E722DAFE6390011D191 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				4CFD9E892DAFF4550011D191 /* XCRemoteSwiftPackageReference "dotlottie-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4CFD9E4E2DAFE0A90011D191 /* Products */;
@@ -364,6 +368,14 @@
 				minimumVersion = 11.11.0;
 			};
 		};
+		4CFD9E892DAFF4550011D191 /* XCRemoteSwiftPackageReference "dotlottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/LottieFiles/dotlottie-ios";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -406,6 +418,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4CFD9E722DAFE6390011D191 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		4CFD9E8A2DAFF4550011D191 /* DotLottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4CFD9E892DAFF4550011D191 /* XCRemoteSwiftPackageReference "dotlottie-ios" */;
+			productName = DotLottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
