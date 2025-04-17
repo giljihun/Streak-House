@@ -4,6 +4,7 @@
 //
 //  Created by 길지훈 on 4/17/25.
 //
+// AuthViewModel: 로그인 흐름 관리 및 UI 상태 처리
 import Foundation
 import SwiftUI
 import AuthenticationServices
@@ -149,10 +150,10 @@ extension AuthViewModel: ASAuthorizationControllerDelegate {
                 }
                 
                 if let user = authResult?.user {
-                    // 사용자 이름이 없고, Apple이 이름 정보를 제공한 경우 업데이트
-                    if user.displayName == nil || user.displayName?.isEmpty == true,
-                       let fullName = appleIDCredential.fullName {
-                        self.updateUserDisplayName(user: user, fullName: fullName)
+                    // 사용자 이름이 없거나 비어있거나 "unknown"인 경우 이메일 기반으로 설정
+                    if user.displayName == nil || user.displayName?.isEmpty == true || user.displayName == "unknown" {
+                        // 이메일에서 사용자 이름 추출
+                        self.updateUserDisplayNameWithEmail(user: user)
                     } else {
                         let appUser = User(user: user)
                         self.currentUser = appUser
@@ -166,50 +167,45 @@ extension AuthViewModel: ASAuthorizationControllerDelegate {
         }
     }
     
-    private func updateUserDisplayName(user: FirebaseAuth.User, fullName: PersonNameComponents) {
+    // 이메일 기반으로 사용자 이름 업데이트
+    private func updateUserDisplayNameWithEmail(user: FirebaseAuth.User) {
         let changeRequest = user.createProfileChangeRequest()
         
-        // 이름 및 성 결합
-        var displayName = ""
-        if let givenName = fullName.givenName {
-            displayName += givenName
-        }
-        if let familyName = fullName.familyName {
-            if !displayName.isEmpty {
-                displayName += " "
-            }
-            displayName += familyName
-        }
+        // 이메일에서 사용자 이름 추출 (@ 앞부분)
+        let emailUsername = user.email?.components(separatedBy: "@").first
+        let username = emailUsername ?? "User\(String(user.uid.prefix(5)))"
         
-        if !displayName.isEmpty {
-            changeRequest.displayName = displayName
+        print("사용자 이메일: \(user.email ?? "없음")")
+        print("생성된 사용자 이름: \(username)")
+        
+        changeRequest.displayName = username
+        
+        changeRequest.commitChanges { [weak self] error in
+            guard let self = self else { return }
             
-            changeRequest.commitChanges { [weak self] error in
-                guard let self = self else { return }
-                
-                DispatchQueue.main.async {
-                    if let error = error {
-                        self.error = error
-                        self.isLoading = false
-                        return
-                    }
-                    
-                    // 이름 업데이트 후 사용자 정보 갱신
-                    let appUser = User(user: user)
-                    self.currentUser = appUser
-                    self.isAuthenticated = true
-                    self.isLoading = false
-                }
-            }
-        } else {
-            // 이름이 없는 경우에도 사용자 로그인 처리
             DispatchQueue.main.async {
+                if let error = error {
+                    self.error = error
+                    self.isLoading = false
+                    return
+                }
+                
+                // 이름 업데이트 후 사용자 정보 갱신
                 let appUser = User(user: user)
                 self.currentUser = appUser
                 self.isAuthenticated = true
                 self.isLoading = false
             }
         }
+    }
+    
+    /* MARK: - 애플 로그인은 최초 로그인 1회에만 사용자 fullName을 제공한다.
+        하지만 무슨 이유인지.. 가져오지 못하네..
+        근데 생각해보니 사용자 이름을 닉네임으로 하는거보단 이메일 앞부분 하는게 좋을듯.
+     */
+    private func updateUserDisplayName(user: FirebaseAuth.User, fullName: PersonNameComponents) {
+        // 이 메서드는 더 이상 사용하지 않지만 호환성을 위해 유지
+        updateUserDisplayNameWithEmail(user: user)
     }
     
     private func handleAccountDeletion(authorization: ASAuthorization) {

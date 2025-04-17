@@ -4,12 +4,14 @@
 //
 //  Created by 길지훈 on 4/17/25.
 //
+// AuthService: Firebase 인증 관련 API 호출 담당
+
 import Foundation
 import FirebaseAuth
 import AuthenticationServices
 import CryptoKit
 
-class AuthService: NSObject {
+class AuthService {
     // 현재 인증된 사용자 가져오기
     func getCurrentUser() -> User? {
         guard let firebaseUser = Auth.auth().currentUser else { return nil }
@@ -21,84 +23,42 @@ class AuthService: NSObject {
         try Auth.auth().signOut()
     }
     
-    // Apple 로그인 처리를 위한 nonce 저장
-    private var currentNonce: String?
-    
-    // 랜덤 nonce 생성
-    private func randomNonceString(length: Int = 32) -> String {
-        precondition(length > 0)
-        var randomBytes = [UInt8](repeating: 0, count: length)
-        let errorCode = SecRandomCopyBytes(kSecRandomDefault, randomBytes.count, &randomBytes)
-        if errorCode != errSecSuccess {
-            fatalError("Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)")
-        }
-
-        let charset: [Character] = Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
-        let nonce = randomBytes.map { byte in
-            charset[Int(byte) % charset.count]
-        }
-
-        return String(nonce)
-    }
-    
-    // SHA256 해시 생성
-    private func sha256(_ input: String) -> String {
-        let inputData = Data(input.utf8)
-        let hashedData = SHA256.hash(data: inputData)
-        let hashString = hashedData.compactMap {
-            String(format: "%02x", $0)
-        }.joined()
-
-        return hashString
-    }
-    
-    // Apple 로그인 요청 생성
-    func createAppleIDRequest() -> ASAuthorizationAppleIDRequest {
-        let nonce = randomNonceString()
-        currentNonce = nonce
-        
-        let appleIDProvider = ASAuthorizationAppleIDProvider()
-        let request = appleIDProvider.createRequest()
-        request.requestedScopes = [.fullName, .email]
-        request.nonce = sha256(nonce)
-        
-        return request
-    }
-    
     // Firebase로 Apple 인증 처리
-    func handleAppleSignIn(with authorization: ASAuthorization) async throws -> User {
-        guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential,
-              let nonce = currentNonce else {
-            throw NSError(domain: "AuthService", code: 0, userInfo: [NSLocalizedDescriptionKey: "Apple 로그인 요청이 올바르지 않습니다."])
-        }
-        
-        guard let appleIDToken = appleIDCredential.identityToken,
-              let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
-            throw NSError(domain: "AuthService", code: 1, userInfo: [NSLocalizedDescriptionKey: "ID 토큰을 가져올 수 없습니다."])
-        }
-        
-        // Firebase 인증 정보 생성 (공식 문서 기반으로 수정)
-        let credential = OAuthProvider.appleCredential(
-            withIDToken: idTokenString,
-            rawNonce: nonce,
-            fullName: appleIDCredential.fullName
-        )
-        
-        // Firebase 로그인 시도
-        do {
-            let authResult = try await Auth.auth().signIn(with: credential)
-            return User(user: authResult.user)
-        } catch {
-            throw error
-        }
+    func signInWithCredential(credential: AuthCredential) async throws -> User {
+        let authResult = try await Auth.auth().signIn(with: credential)
+        return User(user: authResult.user)
     }
     
-    // 계정 삭제
-    func deleteAccount(authorizationCode: String) async throws {
+    // 프로필 업데이트
+    func updateUserProfile(displayName: String) async throws {
+        guard let user = Auth.auth().currentUser else {
+            throw NSError(domain: "AuthService", code: 0, userInfo: nil)
+        }
+        
+        let changeRequest = user.createProfileChangeRequest()
+        changeRequest.displayName = displayName
+        try await changeRequest.commitChanges()
+    }
+    
+    // 토큰 취소 및 계정 삭제
+    func deleteAccount(withAuthorizationCode authorizationCode: String) async throws {
+        guard let _ = Auth.auth().currentUser else {
+            throw NSError(domain: "AuthService", code: 0, userInfo: nil)
+        }
+        
         // 토큰 취소
         try await Auth.auth().revokeToken(withAuthorizationCode: authorizationCode)
         
-        // 현재 사용자 삭제
+        // 계정 삭제
         try await Auth.auth().currentUser?.delete()
+    }
+    
+    // 사용자 재인증
+    func reauthenticateUser(with credential: AuthCredential) async throws {
+        guard let user = Auth.auth().currentUser else {
+            throw NSError(domain: "AuthService", code: 0, userInfo: nil)
+        }
+        
+        try await user.reauthenticate(with: credential)
     }
 }
