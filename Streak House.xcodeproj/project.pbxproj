@@ -31,7 +31,7 @@
 		4CFD9F132DB237210011D191 /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD9EFF2DB237210011D191 /* OnBoardingView.swift */; };
 		4CFD9F142DB237210011D191 /* StreaksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD9F002DB237210011D191 /* StreaksView.swift */; };
 		4CFD9F152DB237210011D191 /* Streak_HouseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD9F052DB237210011D191 /* Streak_HouseApp.swift */; };
-		4CFD9F172DB23D9A0011D191 /* ChipsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD9F162DB23D9A0011D191 /* ChipsContainerView.swift */; };
+		4CFD9F1E2DB2AA9B0011D191 /* ChipsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD9F1D2DB2AA9B0011D191 /* ChipsContainerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,7 +52,7 @@
 		4CFD9F032DB237210011D191 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4CFD9F042DB237210011D191 /* Streak House.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Streak House.entitlements"; sourceTree = "<group>"; };
 		4CFD9F052DB237210011D191 /* Streak_HouseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Streak_HouseApp.swift; sourceTree = "<group>"; };
-		4CFD9F162DB23D9A0011D191 /* ChipsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipsContainerView.swift; sourceTree = "<group>"; };
+		4CFD9F1D2DB2AA9B0011D191 /* ChipsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipsContainerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,14 +134,13 @@
 		4CFD9F012DB237210011D191 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4CFD9EFA2DB237210011D191 /* AlertsView.swift */,
-				4CFD9EFB2DB237210011D191 /* DiscoveryView.swift */,
-				4CFD9EFC2DB237210011D191 /* InterestsView.swift */,
 				4CFD9EFD2DB237210011D191 /* LoginView.swift */,
-				4CFD9EFE2DB237210011D191 /* MyProfileView.swift */,
 				4CFD9EFF2DB237210011D191 /* OnBoardingView.swift */,
+				4CFD9F182DB2A8750011D191 /* InterestsView */,
 				4CFD9F002DB237210011D191 /* StreaksView.swift */,
-				4CFD9F162DB23D9A0011D191 /* ChipsContainerView.swift */,
+				4CFD9EFB2DB237210011D191 /* DiscoveryView.swift */,
+				4CFD9EFA2DB237210011D191 /* AlertsView.swift */,
+				4CFD9EFE2DB237210011D191 /* MyProfileView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -161,6 +160,15 @@
 				4CFD9F052DB237210011D191 /* Streak_HouseApp.swift */,
 			);
 			path = "Streak House";
+			sourceTree = "<group>";
+		};
+		4CFD9F182DB2A8750011D191 /* InterestsView */ = {
+			isa = PBXGroup;
+			children = (
+				4CFD9EFC2DB237210011D191 /* InterestsView.swift */,
+				4CFD9F1D2DB2AA9B0011D191 /* ChipsContainerView.swift */,
+			);
+			path = InterestsView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,7 +259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CFD9F172DB23D9A0011D191 /* ChipsContainerView.swift in Sources */,
+				4CFD9F1E2DB2AA9B0011D191 /* ChipsContainerView.swift in Sources */,
 				4CFD9F0B2DB237210011D191 /* User.swift in Sources */,
 				4CFD9F0C2DB237210011D191 /* AuthService.swift in Sources */,
 				4CFD9F0D2DB237210011D191 /* AuthViewModel.swift in Sources */,
