@@ -11,6 +11,11 @@ struct OnBoardingView: View {
     @ObservedObject var viewModel: AuthViewModel
 
     var body: some View {
+        
+        // TODO: - 여기에 닉네임(이메일) 환영합니다!를 하고
+        // 1. 인디케이터로 설명?
+        // 2. 그냥 시작하기로 관심사 선택으로 이동?
+    
         VStack(spacing: 20) {
             Text("👋 Welcome to Streak House!")
                 .font(.largeTitle)
@@ -32,10 +37,17 @@ struct OnBoardingView: View {
             }
             .foregroundColor(.red)
             .padding()
-        }
+            
+            // 로그인 버튼 또는 로딩 표시
+            if viewModel.isLoading {
+                ProgressView("logging out...")
+                    .progressViewStyle(CircularProgressViewStyle(tint: .gray))
+                    // .padding(.top, 20)
+            }
+            
+        }.navigationBarBackButtonHidden()
     }
 }
-
 
 #Preview {
     OnBoardingView(viewModel: AuthViewModel())

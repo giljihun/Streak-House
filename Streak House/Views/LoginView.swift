@@ -58,11 +58,12 @@ struct LoginView: View {
                 if viewModel.isLoading {
                     ProgressView("Logging in...")
                         .progressViewStyle(CircularProgressViewStyle(tint: .gray))
-                        .padding(.top, 20)
+                        // .padding(.top, 20)
                 } else {
                     appleSignInButton
                 }
             }
+            // 이동하자
             .navigationDestination(isPresented: $viewModel.isAuthenticated) {
                 OnBoardingView(viewModel: viewModel)
             }

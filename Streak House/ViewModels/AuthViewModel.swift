@@ -5,6 +5,8 @@
 //  Created by 길지훈 on 4/17/25.
 //
 // AuthViewModel: 로그인 흐름 관리 및 UI 상태 처리
+// AuthService: Firebase 인증 관련 API 호출 담당
+
 import Foundation
 import SwiftUI
 import AuthenticationServices
@@ -18,6 +20,7 @@ class AuthViewModel: NSObject, ObservableObject {
     @Published var isLoading = false
     
     private let authService = AuthService()
+    
     // Apple 로그인 처리를 위한 nonce 저장
     private var currentNonce: String?
     

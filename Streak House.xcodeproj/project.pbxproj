@@ -16,19 +16,44 @@
 		4CFD9E802DAFE6390011D191 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFD9E7F2DAFE6390011D191 /* FirebaseMessaging */; };
 		4CFD9E822DAFE6390011D191 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFD9E812DAFE6390011D191 /* FirebaseStorage */; };
 		4CFD9E8B2DAFF4550011D191 /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFD9E8A2DAFF4550011D191 /* DotLottie */; };
+		4CFD9F072DB237210011D191 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CFD9EF22DB237210011D191 /* Preview Assets.xcassets */; };
+		4CFD9F082DB237210011D191 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CFD9EF42DB237210011D191 /* Assets.xcassets */; };
+		4CFD9F092DB237210011D191 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 4CFD9F022DB237210011D191 /* .gitignore */; };
+		4CFD9F0A2DB237210011D191 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CFD9F032DB237210011D191 /* GoogleService-Info.plist */; };
+		4CFD9F0B2DB237210011D191 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD9EF02DB237210011D191 /* User.swift */; };
+		4CFD9F0C2DB237210011D191 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD9EF62DB237210011D191 /* AuthService.swift */; };
+		4CFD9F0D2DB237210011D191 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD9EF82DB237210011D191 /* AuthViewModel.swift */; };
+		4CFD9F0E2DB237210011D191 /* AlertsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD9EFA2DB237210011D191 /* AlertsView.swift */; };
+		4CFD9F0F2DB237210011D191 /* DiscoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD9EFB2DB237210011D191 /* DiscoveryView.swift */; };
+		4CFD9F102DB237210011D191 /* InterestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD9EFC2DB237210011D191 /* InterestsView.swift */; };
+		4CFD9F112DB237210011D191 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD9EFD2DB237210011D191 /* LoginView.swift */; };
+		4CFD9F122DB237210011D191 /* MyProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD9EFE2DB237210011D191 /* MyProfileView.swift */; };
+		4CFD9F132DB237210011D191 /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD9EFF2DB237210011D191 /* OnBoardingView.swift */; };
+		4CFD9F142DB237210011D191 /* StreaksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD9F002DB237210011D191 /* StreaksView.swift */; };
+		4CFD9F152DB237210011D191 /* Streak_HouseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD9F052DB237210011D191 /* Streak_HouseApp.swift */; };
+		4CFD9F172DB23D9A0011D191 /* ChipsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD9F162DB23D9A0011D191 /* ChipsContainerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4CFD9E4D2DAFE0A90011D191 /* Streak House.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Streak House.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CFD9EF02DB237210011D191 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		4CFD9EF22DB237210011D191 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4CFD9EF42DB237210011D191 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4CFD9EF62DB237210011D191 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		4CFD9EF82DB237210011D191 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		4CFD9EFA2DB237210011D191 /* AlertsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsView.swift; sourceTree = "<group>"; };
+		4CFD9EFB2DB237210011D191 /* DiscoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryView.swift; sourceTree = "<group>"; };
+		4CFD9EFC2DB237210011D191 /* InterestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestsView.swift; sourceTree = "<group>"; };
+		4CFD9EFD2DB237210011D191 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		4CFD9EFE2DB237210011D191 /* MyProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileView.swift; sourceTree = "<group>"; };
+		4CFD9EFF2DB237210011D191 /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
+		4CFD9F002DB237210011D191 /* StreaksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreaksView.swift; sourceTree = "<group>"; };
+		4CFD9F022DB237210011D191 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		4CFD9F032DB237210011D191 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4CFD9F042DB237210011D191 /* Streak House.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Streak House.entitlements"; sourceTree = "<group>"; };
+		4CFD9F052DB237210011D191 /* Streak_HouseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Streak_HouseApp.swift; sourceTree = "<group>"; };
+		4CFD9F162DB23D9A0011D191 /* ChipsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipsContainerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		4CFD9E4F2DAFE0A90011D191 /* Streak House */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Streak House";
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		4CFD9E4A2DAFE0A90011D191 /* Frameworks */ = {
@@ -54,7 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				4CFD9E4E2DAFE0A90011D191 /* Products */,
-				4CFD9E4F2DAFE0A90011D191 /* Streak House */,
+				4CFD9F062DB237210011D191 /* Streak House */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +89,78 @@
 				4CFD9E4D2DAFE0A90011D191 /* Streak House.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		4CFD9EF12DB237210011D191 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4CFD9EF02DB237210011D191 /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4CFD9EF32DB237210011D191 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				4CFD9EF22DB237210011D191 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		4CFD9EF52DB237210011D191 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4CFD9EF42DB237210011D191 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		4CFD9EF72DB237210011D191 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4CFD9EF62DB237210011D191 /* AuthService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		4CFD9EF92DB237210011D191 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				4CFD9EF82DB237210011D191 /* AuthViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		4CFD9F012DB237210011D191 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4CFD9EFA2DB237210011D191 /* AlertsView.swift */,
+				4CFD9EFB2DB237210011D191 /* DiscoveryView.swift */,
+				4CFD9EFC2DB237210011D191 /* InterestsView.swift */,
+				4CFD9EFD2DB237210011D191 /* LoginView.swift */,
+				4CFD9EFE2DB237210011D191 /* MyProfileView.swift */,
+				4CFD9EFF2DB237210011D191 /* OnBoardingView.swift */,
+				4CFD9F002DB237210011D191 /* StreaksView.swift */,
+				4CFD9F162DB23D9A0011D191 /* ChipsContainerView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4CFD9F062DB237210011D191 /* Streak House */ = {
+			isa = PBXGroup;
+			children = (
+				4CFD9EF12DB237210011D191 /* Models */,
+				4CFD9EF32DB237210011D191 /* Preview Content */,
+				4CFD9EF52DB237210011D191 /* Resources */,
+				4CFD9EF72DB237210011D191 /* Services */,
+				4CFD9EF92DB237210011D191 /* ViewModels */,
+				4CFD9F012DB237210011D191 /* Views */,
+				4CFD9F022DB237210011D191 /* .gitignore */,
+				4CFD9F032DB237210011D191 /* GoogleService-Info.plist */,
+				4CFD9F042DB237210011D191 /* Streak House.entitlements */,
+				4CFD9F052DB237210011D191 /* Streak_HouseApp.swift */,
+			);
+			path = "Streak House";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -80,9 +177,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				4CFD9E4F2DAFE0A90011D191 /* Streak House */,
 			);
 			name = "Streak House";
 			packageProductDependencies = (
@@ -143,6 +237,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CFD9F072DB237210011D191 /* Preview Assets.xcassets in Resources */,
+				4CFD9F082DB237210011D191 /* Assets.xcassets in Resources */,
+				4CFD9F092DB237210011D191 /* .gitignore in Resources */,
+				4CFD9F0A2DB237210011D191 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,6 +251,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CFD9F172DB23D9A0011D191 /* ChipsContainerView.swift in Sources */,
+				4CFD9F0B2DB237210011D191 /* User.swift in Sources */,
+				4CFD9F0C2DB237210011D191 /* AuthService.swift in Sources */,
+				4CFD9F0D2DB237210011D191 /* AuthViewModel.swift in Sources */,
+				4CFD9F0E2DB237210011D191 /* AlertsView.swift in Sources */,
+				4CFD9F0F2DB237210011D191 /* DiscoveryView.swift in Sources */,
+				4CFD9F102DB237210011D191 /* InterestsView.swift in Sources */,
+				4CFD9F112DB237210011D191 /* LoginView.swift in Sources */,
+				4CFD9F122DB237210011D191 /* MyProfileView.swift in Sources */,
+				4CFD9F132DB237210011D191 /* OnBoardingView.swift in Sources */,
+				4CFD9F142DB237210011D191 /* StreaksView.swift in Sources */,
+				4CFD9F152DB237210011D191 /* Streak_HouseApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
