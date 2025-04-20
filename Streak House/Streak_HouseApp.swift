@@ -20,12 +20,21 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct Streak_HouseApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    
+
+    @StateObject var viewModel = AuthViewModel()
+    @State private var didSelectInterests = false
+
     var body: some Scene {
         WindowGroup {
-            // ContentView()
-            // LoginView()
-            InterestsView()
+            NavigationStack {
+                if !viewModel.isAuthenticated {
+                    LoginView()
+                } else if !didSelectInterests {
+                    InterestsView(didSelectInterests: $didSelectInterests)
+                } else {
+                    StreaksView()
+                }
+            }
         }
     }
 }

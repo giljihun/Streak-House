@@ -7,6 +7,9 @@
 import SwiftUI
 
 struct InterestsView: View {
+    
+    @Binding var didSelectInterests: Bool
+    
     let allInterests = [
         "Health & Fitness", "Lifestyle", "Music", "Career Growth", "Learning",
         "Personal Growth", "Art & Creativity", "Finance", "Reading",
@@ -55,5 +58,5 @@ struct InterestsView: View {
 }
 
 #Preview {
-    InterestsView()
+    InterestsView(didSelectInterests: .constant(false))
 }

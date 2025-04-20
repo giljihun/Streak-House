@@ -6,37 +6,51 @@
 //
 //
 
-
 import SwiftUI
 import DotLottie
 import AuthenticationServices
 
 struct LoginView: View {
     @StateObject private var viewModel = AuthViewModel()
+    @State private var showLogo = false
+    @State private var showTitle = false
+    @State private var showSubtitle = false
     
     var body: some View {
         NavigationStack {
             VStack {
                 // 로고 애니메이션
-                DotLottieAnimation(
-                    webURL: "https://lottie.host/b877a9a4-4547-4ec9-b110-c197c30e5099/a2UcN8423y.lottie",
-                    config: AnimationConfig(autoplay: true, loop: true)
-                )
-                .view()
-                .frame(width: 225, height: 225)
-                .padding(.top, 140)
-                .padding(.bottom, -30)
+                withAnimation {
+                    DotLottieAnimation(
+                        webURL: "https://lottie.host/b877a9a4-4547-4ec9-b110-c197c30e5099/a2UcN8423y.lottie",
+                        config: AnimationConfig(autoplay: true, loop: true)
+                    )
+                    .view()
+                    .frame(width: 225, height: 225)
+                    .padding(.top, 140)
+                    .padding(.bottom, -30)
+                    .opacity(showLogo ? 1 : 0)
+                    .offset(y: showLogo ? 0 : -30)
+                }
                 
                 // 앱 제목
-                Text("Streak House")
-                    .font(.system(size: 50, weight: .bold))
-                    .padding(.bottom, 14)
+                withAnimation {
+                    Text("Streak House")
+                        .font(.system(size: 50, weight: .bold))
+                        .padding(.bottom, 14)
+                        .opacity(showTitle ? 1 : 0)
+                        .offset(y: showTitle ? 0 : -20)
+                }
                 
                 // 앱 설명
-                Text("Achieve goals together, support each other")
-                    .font(.system(size: 14, weight: .regular))
-                    .foregroundColor(Color(#colorLiteral(red: 0.294, green: 0.334, blue: 0.389, alpha: 1)))
-                    .padding(.bottom, 160)
+                withAnimation {
+                    Text("Achieve goals together, support each other")
+                        .font(.system(size: 14, weight: .regular))
+                        .foregroundColor(Color(#colorLiteral(red: 0.294, green: 0.334, blue: 0.389, alpha: 1)))
+                        .padding(.bottom, 160)
+                        .opacity(showSubtitle ? 1 : 0)
+                        .offset(y: showSubtitle ? 0 : -20)
+                }
                 
                 // 이용 약관
                 VStack(spacing: 0.5) {
@@ -66,6 +80,21 @@ struct LoginView: View {
             // 이동하자
             .navigationDestination(isPresented: $viewModel.isAuthenticated) {
                 OnBoardingView(viewModel: viewModel)
+            }
+            .onAppear {
+                withAnimation(.easeOut(duration: 0.6)) {
+                    showLogo = true
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                    withAnimation(.easeOut(duration: 0.6)) {
+                        showTitle = true
+                    }
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                    withAnimation(.easeOut(duration: 0.6)) {
+                        showSubtitle = true
+                    }
+                }
             }
         }
     }
