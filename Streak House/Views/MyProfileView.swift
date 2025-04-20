@@ -9,43 +9,51 @@ import SwiftUI
 
 struct MyProfileView: View {
     @ObservedObject var viewModel: AuthViewModel
-
+    @State private var goToInterests = false
+    
     var body: some View {
         
-        // TODO: - 여기에 닉네임(이메일) 환영합니다!를 하고
-        // 1. 인디케이터로 설명?
-        // 2. 그냥 시작하기로 관심사 선택으로 이동?
-    
-        VStack(spacing: 20) {
-            Text("👋 Welcome to Streak House!")
-                .font(.largeTitle)
-                .bold()
-                .padding()
-
-            if let user = viewModel.currentUser {
-                Text("You're logged in as: \(user.displayName ?? "Unknown")")
-            }
-
-            Button("Log Out") {
-                viewModel.signOut()
-            }
-            .foregroundColor(.red)
-            .padding()
+        VStack(alignment: .leading, spacing: 0) {
             
-            Button("Delete Account") {
-                viewModel.deleteAccount()
-            }
-            .foregroundColor(.red)
-            .padding()
+            Text("My Profile")
+                .font(.system(size: 24, weight: .semibold))
+                .padding([.top, .bottom], 12)
+                .padding(.bottom, 2)
+                .padding(.horizontal, 16)
+                .frame(maxWidth: .infinity, alignment: .leading)
             
-            // 로그인 버튼 또는 로딩 표시
-            if viewModel.isLoading {
-                ProgressView("logging out...")
-                    .progressViewStyle(CircularProgressViewStyle(tint: .gray))
-                    // .padding(.top, 20)
+            ScrollView {
+                VStack(alignment: .leading) {
+                    Spacer().frame(height: 40)
+                    
+                    Text("👋 Welcome to Streak House!")
+                        .font(.system(size: 20, weight: .bold))
+                    
+                    if let user = viewModel.currentUser {
+                        Text("You're logged in as: \(user.displayName ?? user.email ?? "Unknown")")
+                            .font(.system(size: 16))
+                            .foregroundColor(.gray)
+                    }
+                
+                    HStack(spacing: 16) {
+                        Button("Log Out") { viewModel.signOut() }
+                            .foregroundColor(.red)
+                        Button("Delete Account") { viewModel.deleteAccount() }
+                            .foregroundColor(.red)
+                    }
+                    
+                    // 로딩 표시
+                    if viewModel.isLoading {
+                        ProgressView("Processing...")
+                            .progressViewStyle(CircularProgressViewStyle(tint: .gray))
+                    }
+                }
+                .frame(maxWidth: .infinity)
             }
+            .background(Color(#colorLiteral(red: 0.9755851626, green: 0.9805569053, blue: 0.9847741723, alpha: 1)))
             
-        }.navigationBarBackButtonHidden()
+            Spacer()
+        }
     }
 }
 

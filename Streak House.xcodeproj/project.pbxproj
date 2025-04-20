@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C396D622DB535E80040756F /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C396D612DB535E80040756F /* CustomTabView.swift */; };
 		4CFD9E742DAFE6390011D191 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFD9E732DAFE6390011D191 /* FirebaseAnalytics */; };
 		4CFD9E762DAFE6390011D191 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFD9E752DAFE6390011D191 /* FirebaseAuth */; };
 		4CFD9E782DAFE6390011D191 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFD9E772DAFE6390011D191 /* FirebaseCore */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C396D612DB535E80040756F /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
 		4CFD9E4D2DAFE0A90011D191 /* Streak House.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Streak House.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CFD9EF02DB237210011D191 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4CFD9EF22DB237210011D191 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				4CFD9EFD2DB237210011D191 /* LoginView.swift */,
 				4CFD9EFF2DB237210011D191 /* OnBoardingView.swift */,
 				4CFD9F182DB2A8750011D191 /* InterestsView */,
+				4C396D612DB535E80040756F /* CustomTabView.swift */,
 				4CFD9F002DB237210011D191 /* StreaksView.swift */,
 				4CFD9EFB2DB237210011D191 /* DiscoveryView.swift */,
 				4CFD9EFA2DB237210011D191 /* AlertsView.swift */,
@@ -261,6 +264,7 @@
 			files = (
 				4CFD9F1E2DB2AA9B0011D191 /* ChipsContainerView.swift in Sources */,
 				4CFD9F0B2DB237210011D191 /* User.swift in Sources */,
+				4C396D622DB535E80040756F /* CustomTabView.swift in Sources */,
 				4CFD9F0C2DB237210011D191 /* AuthService.swift in Sources */,
 				4CFD9F0D2DB237210011D191 /* AuthViewModel.swift in Sources */,
 				4CFD9F0E2DB237210011D191 /* AlertsView.swift in Sources */,

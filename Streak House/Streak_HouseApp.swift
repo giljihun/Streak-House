@@ -40,7 +40,7 @@ struct Streak_HouseApp: App {
                 } else if !didSelectInterests {
                     InterestsView(didSelectInterests: $didSelectInterests)
                 } else {
-                    StreaksView()
+                    CustomTabView()
                 }
             }
         }
