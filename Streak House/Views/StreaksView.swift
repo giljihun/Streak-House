@@ -9,7 +9,27 @@ import SwiftUI
 
 struct StreaksView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        TabView {
+            Text("Home View")
+                .tabItem {
+                    Label("Streaks", systemImage: "house")
+                }
+            
+            Text("Calendar View")
+                .tabItem {
+                    Label("Calendar", systemImage: "calendar")
+                }	
+            
+            Text("Settings View")
+                .tabItem {
+                    Label("Settings", systemImage: "gear")
+                }
+            
+            Text("Settings View")
+                .tabItem {
+                    Label("Settings", systemImage: "gear")
+                }
+        }
     }
 }
 

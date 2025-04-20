@@ -41,7 +41,7 @@ struct InterestsView: View {
                 Spacer()
                 
                 Button(action: {
-                    // TODO: - Continue Func Here.
+                    didSelectInterests = true
                 }) {
                     Text("Continue ( \(selectedInterests.count) selected )")
                         .frame(maxWidth: .infinity, minHeight: 43)
@@ -53,6 +53,7 @@ struct InterestsView: View {
                 .padding(.bottom, 23)
             }
             .padding(.horizontal, 16)
+            .navigationBarBackButtonHidden(true)
         }
     }
 }
