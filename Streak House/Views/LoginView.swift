@@ -12,6 +12,7 @@ import AuthenticationServices
 
 struct LoginView: View {
     @StateObject private var viewModel = AuthViewModel()
+    @Binding var didSelectInterests: Bool
     @State private var showLogo = false
     @State private var showTitle = false
     @State private var showSubtitle = false
@@ -79,7 +80,7 @@ struct LoginView: View {
             }
             // 이동하자
             .navigationDestination(isPresented: $viewModel.isAuthenticated) {
-                OnBoardingView(viewModel: viewModel)
+                InterestsView(didSelectInterests: $didSelectInterests)
             }
             .onAppear {
                 withAnimation(.easeOut(duration: 0.6)) {
@@ -113,5 +114,5 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView()
+    LoginView(didSelectInterests: .constant(false))
 }

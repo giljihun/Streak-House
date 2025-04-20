@@ -28,7 +28,11 @@ struct Streak_HouseApp: App {
         WindowGroup {
             NavigationStack {
                 if !viewModel.isAuthenticated {
-                    LoginView()
+                    LoginView(didSelectInterests: $didSelectInterests)
+                    // 계정 삭제, 계정 변경 시. 버그 발생 방지!
+                        .onAppear {
+                                didSelectInterests = false
+                            }
                 } else if !didSelectInterests {
                     InterestsView(didSelectInterests: $didSelectInterests)
                 } else {
