@@ -23,7 +23,7 @@ struct CreateModalView: View {
     var categoryIconName: String {
         switch selectedCategory {
         case "Study": return "book.fill"
-        case "Health": return "heart.fill"
+        case "Health": return "figure.run"
         case "Creativity": return "paintbrush.fill"
         case "Fun": return "gamecontroller.fill"
         default: return "sparkles"

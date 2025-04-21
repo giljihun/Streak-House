@@ -29,7 +29,7 @@ struct ActivityView: View {
         }
         .background(Color(#colorLiteral(red: 0.9755851626, green: 0.9805569053, blue: 0.9847741723, alpha: 1)))
         
-        Spacer()
+        // Spacer()
     }
 }
 
