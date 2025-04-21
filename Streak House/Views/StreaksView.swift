@@ -89,7 +89,7 @@ struct StreaksView: View {
                             .sheet(isPresented: self.$showCreateModal) {
                                 CreateModalView()
                                     .presentationDragIndicator(.visible)
-                                    .presentationDetents([.medium])
+                                    .presentationDetents([.height(580)])
                             }
                             .padding()
                             .background(Color.white)

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4C05809B2DB60372001C6F26 /* CreateModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C05809A2DB60372001C6F26 /* CreateModalView.swift */; };
 		4C396D622DB535E80040756F /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C396D612DB535E80040756F /* CustomTabView.swift */; };
+		4C3A7A282DB6AB42005DAEA2 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A7A272DB6AB42005DAEA2 /* Keyboard.swift */; };
 		4CFD9E742DAFE6390011D191 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFD9E732DAFE6390011D191 /* FirebaseAnalytics */; };
 		4CFD9E762DAFE6390011D191 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFD9E752DAFE6390011D191 /* FirebaseAuth */; };
 		4CFD9E782DAFE6390011D191 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFD9E772DAFE6390011D191 /* FirebaseCore */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		4C05809A2DB60372001C6F26 /* CreateModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateModalView.swift; sourceTree = "<group>"; };
 		4C396D612DB535E80040756F /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
+		4C3A7A272DB6AB42005DAEA2 /* Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		4CFD9E4D2DAFE0A90011D191 /* Streak House.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Streak House.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CFD9EF02DB237210011D191 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4CFD9EF22DB237210011D191 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -79,6 +81,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C3A7A1E2DB693C4005DAEA2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4C3A7A272DB6AB42005DAEA2 /* Keyboard.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		4CFD9E442DAFE0A90011D191 = {
 			isa = PBXGroup;
 			children = (
@@ -154,12 +164,13 @@
 		4CFD9F062DB237210011D191 /* Streak House */ = {
 			isa = PBXGroup;
 			children = (
-				4CFD9EF12DB237210011D191 /* Models */,
-				4CFD9EF32DB237210011D191 /* Preview Content */,
-				4CFD9EF52DB237210011D191 /* Resources */,
 				4CFD9EF72DB237210011D191 /* Services */,
+				4CFD9EF12DB237210011D191 /* Models */,
 				4CFD9EF92DB237210011D191 /* ViewModels */,
 				4CFD9F012DB237210011D191 /* Views */,
+				4C3A7A1E2DB693C4005DAEA2 /* Extensions */,
+				4CFD9EF52DB237210011D191 /* Resources */,
+				4CFD9EF32DB237210011D191 /* Preview Content */,
 				4CFD9F022DB237210011D191 /* .gitignore */,
 				4CFD9F032DB237210011D191 /* GoogleService-Info.plist */,
 				4CFD9F042DB237210011D191 /* Streak House.entitlements */,
@@ -272,6 +283,7 @@
 				4CFD9F0C2DB237210011D191 /* AuthService.swift in Sources */,
 				4CFD9F0D2DB237210011D191 /* AuthViewModel.swift in Sources */,
 				4CFD9F0E2DB237210011D191 /* AlertsView.swift in Sources */,
+				4C3A7A282DB6AB42005DAEA2 /* Keyboard.swift in Sources */,
 				4CFD9F0F2DB237210011D191 /* DiscoveryView.swift in Sources */,
 				4CFD9F102DB237210011D191 /* InterestsView.swift in Sources */,
 				4CFD9F112DB237210011D191 /* LoginView.swift in Sources */,
