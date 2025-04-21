@@ -24,9 +24,9 @@ struct CustomTabView: View {
                 }
                 .tag(1)
             
-            AlertsView()
+            ActivityView()
                 .tabItem {
-                    Label("Alerts", systemImage: "bell.fill")
+                    Label("Activity", systemImage: "sparkles")
                 }
                 .tag(2)
             
@@ -39,7 +39,7 @@ struct CustomTabView: View {
     }
 }
 
-
 #Preview {
     CustomTabView()
+        .environmentObject(AuthViewModel())
 }

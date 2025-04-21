@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct AlertsView: View {
+struct ActivityView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             
-            Text("Alerts")
+            Text("Activities")
                 .font(.system(size: 32, weight: .semibold))
                 .padding([.top, .bottom], 12)
                 .padding(.bottom, 2)
@@ -20,21 +20,20 @@ struct AlertsView: View {
             
             ScrollView {
                 VStack(alignment: .leading) {
-                    ForEach(0..<30) { index in
-                        Text("Item \(index)")
-                            .padding()
-                    }
-                    Spacer(minLength: 50)
+                    
+                    
                 }
-                .frame(maxWidth: .infinity)
+                Spacer(minLength: 50)
             }
-            .background(Color(#colorLiteral(red: 0.9755851626, green: 0.9805569053, blue: 0.9847741723, alpha: 1)))
-            
-            Spacer()
+            .frame(maxWidth: .infinity)
         }
+        .background(Color(#colorLiteral(red: 0.9755851626, green: 0.9805569053, blue: 0.9847741723, alpha: 1)))
+        
+        Spacer()
     }
 }
 
+
 #Preview {
-    AlertsView()
+    ActivityView()
 }

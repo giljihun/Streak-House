@@ -20,10 +20,7 @@ struct DiscoveryView: View {
             
             ScrollView {
                 VStack(alignment: .leading) {
-                    ForEach(0..<30) { index in
-                        Text("Item \(index)")
-                            .padding()
-                    }
+
                     Spacer(minLength: 50)
                 }
                 .frame(maxWidth: .infinity)

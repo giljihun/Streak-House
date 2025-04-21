@@ -63,9 +63,10 @@ struct StreaksView: View {
                             Spacer()
                             
                             VStack(alignment: .center, spacing: 16) {
-                                Text("Ready to Start a New Streak? 🔥")
+                                Text("Ready to Start a New Streak?")
                                     .font(.system(size: 16, weight: .medium))
                                     .foregroundColor(.gray)
+                                    .padding()
                                 
                                 Button(action: {
                                     self.showCreateModal = true
@@ -128,21 +129,27 @@ struct StreaksView: View {
                             Text("Send a Cheer to Someone!")
                                 .font(.system(size: 16, weight: .medium))
                                 .foregroundColor(.gray)
+                                .padding()
                             
                             Button(action: {
                                 // Discovery 탭으로 이동
                                 selectedTab = 1
                             }) {
-                                VStack(spacing: 4) {
-                                    Image(systemName: "sparkles") // 탐색 느낌!
+                                VStack(spacing: 8) {
+                                    Image(systemName: "fireplace.fill")
                                         .resizable()
                                         .scaledToFit()
-                                        .frame(width: 36, height: 36)
+                                        .frame(width: 40, height: 40)
                                     
                                     Text("Go to Discovery")
-                                        .font(.system(size: 14, weight: .semibold))
+                                        .font(.system(size: 16, weight: .semibold))
                                 }
+                                .padding()
                                 .foregroundColor(.blue)
+                                .padding(.vertical, 10)
+                                .padding(.horizontal, 16)
+                                .background(Color.blue.opacity(0.1))
+                                .cornerRadius(10)
                             }
                         }
                         .padding()
@@ -150,9 +157,7 @@ struct StreaksView: View {
                         .cornerRadius(12)
                         .shadow(color: Color.black.opacity(0.08), radius: 4, x: 0, y: 2)
                         .shadow(color: Color.black.opacity(0.05), radius: 1, x: 0, y: 1)
-                        
                         .padding(.horizontal, 16)
-                        
                         Spacer()
                     }
                 }

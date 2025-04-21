@@ -26,7 +26,7 @@
 		4CFD9F0B2DB237210011D191 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD9EF02DB237210011D191 /* User.swift */; };
 		4CFD9F0C2DB237210011D191 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD9EF62DB237210011D191 /* AuthService.swift */; };
 		4CFD9F0D2DB237210011D191 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD9EF82DB237210011D191 /* AuthViewModel.swift */; };
-		4CFD9F0E2DB237210011D191 /* AlertsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD9EFA2DB237210011D191 /* AlertsView.swift */; };
+		4CFD9F0E2DB237210011D191 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD9EFA2DB237210011D191 /* ActivityView.swift */; };
 		4CFD9F0F2DB237210011D191 /* DiscoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD9EFB2DB237210011D191 /* DiscoveryView.swift */; };
 		4CFD9F102DB237210011D191 /* InterestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD9EFC2DB237210011D191 /* InterestsView.swift */; };
 		4CFD9F112DB237210011D191 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD9EFD2DB237210011D191 /* LoginView.swift */; };
@@ -47,7 +47,7 @@
 		4CFD9EF42DB237210011D191 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4CFD9EF62DB237210011D191 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		4CFD9EF82DB237210011D191 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
-		4CFD9EFA2DB237210011D191 /* AlertsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsView.swift; sourceTree = "<group>"; };
+		4CFD9EFA2DB237210011D191 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		4CFD9EFB2DB237210011D191 /* DiscoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryView.swift; sourceTree = "<group>"; };
 		4CFD9EFC2DB237210011D191 /* InterestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestsView.swift; sourceTree = "<group>"; };
 		4CFD9EFD2DB237210011D191 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -155,7 +155,7 @@
 				4CFD9F002DB237210011D191 /* StreaksView.swift */,
 				4C05809A2DB60372001C6F26 /* CreateModalView.swift */,
 				4CFD9EFB2DB237210011D191 /* DiscoveryView.swift */,
-				4CFD9EFA2DB237210011D191 /* AlertsView.swift */,
+				4CFD9EFA2DB237210011D191 /* ActivityView.swift */,
 				4CFD9EFE2DB237210011D191 /* MyProfileView.swift */,
 			);
 			path = Views;
@@ -282,7 +282,7 @@
 				4C396D622DB535E80040756F /* CustomTabView.swift in Sources */,
 				4CFD9F0C2DB237210011D191 /* AuthService.swift in Sources */,
 				4CFD9F0D2DB237210011D191 /* AuthViewModel.swift in Sources */,
-				4CFD9F0E2DB237210011D191 /* AlertsView.swift in Sources */,
+				4CFD9F0E2DB237210011D191 /* ActivityView.swift in Sources */,
 				4C3A7A282DB6AB42005DAEA2 /* Keyboard.swift in Sources */,
 				4CFD9F0F2DB237210011D191 /* DiscoveryView.swift in Sources */,
 				4CFD9F102DB237210011D191 /* InterestsView.swift in Sources */,
