@@ -9,6 +9,13 @@ import SwiftUI
 struct InterestsView: View {
     
     @Binding var didSelectInterests: Bool
+    @EnvironmentObject var viewModel: AuthViewModel
+    
+    
+//    1.    Growth
+//    2.    Wellness
+//    3.    Creative
+//    4.    Leisure
     
     let allInterests = [
         "Health & Fitness", "Lifestyle", "Music", "Career Growth", "Learning",
@@ -20,7 +27,6 @@ struct InterestsView: View {
     @State private var selectedInterests: Set<String> = []
     
     var body: some View {
-        NavigationStack {
             VStack(alignment: .leading) {
                 Text("Interests")
                     .font(.system(size: 32, weight: .bold))
@@ -54,10 +60,9 @@ struct InterestsView: View {
             }
             .padding(.horizontal, 16)
             .navigationBarBackButtonHidden(true)
-        }
     }
 }
 
 #Preview {
-    InterestsView(didSelectInterests: .constant(false))
+    InterestsView(didSelectInterests: .constant(false) )
 }

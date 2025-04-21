@@ -7,9 +7,12 @@
 import SwiftUI
 
 struct CustomTabView: View {
+    @State private var selectedTab = 0
+    @EnvironmentObject var viewModel: AuthViewModel
+
     var body: some View {
-        TabView {
-            StreaksView()
+        TabView(selection: $selectedTab) {
+            StreaksView(selectedTab: $selectedTab)
                 .tabItem {
                     Label("Streaks", systemImage: "flame.fill")
                 }
@@ -27,14 +30,15 @@ struct CustomTabView: View {
                 }
                 .tag(2)
             
-            MyProfileView(viewModel: AuthViewModel())
+            MyProfileView()
                 .tabItem {
-                    Label("Profile", systemImage: "person.fill")
+                    Label("My Profile", systemImage: "person.fill")
                 }
                 .tag(3)
         }
     }
 }
+
 
 #Preview {
     CustomTabView()

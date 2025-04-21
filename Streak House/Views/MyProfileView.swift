@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MyProfileView: View {
-    @ObservedObject var viewModel: AuthViewModel
+    @EnvironmentObject var viewModel: AuthViewModel
     @State private var goToInterests = false
     
     var body: some View {
@@ -16,14 +16,14 @@ struct MyProfileView: View {
         VStack(alignment: .leading, spacing: 0) {
             
             Text("My Profile")
-                .font(.system(size: 24, weight: .semibold))
+                .font(.system(size: 32, weight: .semibold))
                 .padding([.top, .bottom], 12)
                 .padding(.bottom, 2)
                 .padding(.horizontal, 16)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             ScrollView {
-                VStack(alignment: .leading) {
+                VStack {
                     Spacer().frame(height: 40)
                     
                     Text("👋 Welcome to Streak House!")
@@ -35,11 +35,16 @@ struct MyProfileView: View {
                             .foregroundColor(.gray)
                     }
                 
-                    HStack(spacing: 16) {
-                        Button("Log Out") { viewModel.signOut() }
-                            .foregroundColor(.red)
-                        Button("Delete Account") { viewModel.deleteAccount() }
-                            .foregroundColor(.red)
+                    HStack(alignment: .center, spacing: 16) {
+                        
+                        Button("Log Out") {
+                            viewModel.signOut()
+                        }
+                        .foregroundColor(.red)
+                        Button("Delete Account") {
+                            viewModel.deleteAccount()
+                        }
+                        .foregroundColor(.red)
                     }
                     
                     // 로딩 표시
@@ -58,5 +63,5 @@ struct MyProfileView: View {
 }
 
 #Preview {
-    MyProfileView(viewModel: AuthViewModel())
+    MyProfileView()
 }

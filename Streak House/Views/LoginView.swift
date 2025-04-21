@@ -11,14 +11,13 @@ import DotLottie
 import AuthenticationServices
 
 struct LoginView: View {
-    @StateObject private var viewModel = AuthViewModel()
+    @EnvironmentObject var viewModel: AuthViewModel
     @Binding var didSelectInterests: Bool
     @State private var showLogo = false
     @State private var showTitle = false
     @State private var showSubtitle = false
     
     var body: some View {
-        NavigationStack {
             VStack {
                 // 로고 애니메이션
                 withAnimation {
@@ -79,9 +78,6 @@ struct LoginView: View {
                 }
             }
             // 이동하자
-            .navigationDestination(isPresented: $viewModel.isAuthenticated) {
-                InterestsView(didSelectInterests: $didSelectInterests)
-            }
             .onAppear {
                 withAnimation(.easeOut(duration: 0.6)) {
                     showLogo = true
@@ -98,7 +94,6 @@ struct LoginView: View {
                 }
             }
             .navigationBarBackButtonHidden(true)
-        }
     }
     
     // Apple 로그인 버튼

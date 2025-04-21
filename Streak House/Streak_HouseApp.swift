@@ -26,6 +26,7 @@ struct Streak_HouseApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
     @StateObject var viewModel = AuthViewModel()
+    
     @AppStorage("didSelectInterests") private var didSelectInterests: Bool = false
 
     var body: some Scene {
@@ -33,16 +34,20 @@ struct Streak_HouseApp: App {
             NavigationStack {
                 if !viewModel.isAuthenticated {
                     LoginView(didSelectInterests: $didSelectInterests)
+                        .environmentObject(viewModel)
                     // 계정 삭제, 계정 변경 시. 버그 발생 방지!
                         .onAppear {
                                 didSelectInterests = false
                             }
                 } else if !didSelectInterests {
                     InterestsView(didSelectInterests: $didSelectInterests)
+                        .environmentObject(viewModel)
                 } else {
                     CustomTabView()
+                        .environmentObject(viewModel)
                 }
             }
+            .navigationBarBackButtonHidden(true)
         }
     }
 }

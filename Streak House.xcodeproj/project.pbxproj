@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C05809B2DB60372001C6F26 /* CreateModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C05809A2DB60372001C6F26 /* CreateModalView.swift */; };
 		4C396D622DB535E80040756F /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C396D612DB535E80040756F /* CustomTabView.swift */; };
 		4CFD9E742DAFE6390011D191 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFD9E732DAFE6390011D191 /* FirebaseAnalytics */; };
 		4CFD9E762DAFE6390011D191 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFD9E752DAFE6390011D191 /* FirebaseAuth */; };
@@ -36,6 +37,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C05809A2DB60372001C6F26 /* CreateModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateModalView.swift; sourceTree = "<group>"; };
 		4C396D612DB535E80040756F /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
 		4CFD9E4D2DAFE0A90011D191 /* Streak House.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Streak House.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CFD9EF02DB237210011D191 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				4CFD9F182DB2A8750011D191 /* InterestsView */,
 				4C396D612DB535E80040756F /* CustomTabView.swift */,
 				4CFD9F002DB237210011D191 /* StreaksView.swift */,
+				4C05809A2DB60372001C6F26 /* CreateModalView.swift */,
 				4CFD9EFB2DB237210011D191 /* DiscoveryView.swift */,
 				4CFD9EFA2DB237210011D191 /* AlertsView.swift */,
 				4CFD9EFE2DB237210011D191 /* MyProfileView.swift */,
@@ -262,6 +265,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C05809B2DB60372001C6F26 /* CreateModalView.swift in Sources */,
 				4CFD9F1E2DB2AA9B0011D191 /* ChipsContainerView.swift in Sources */,
 				4CFD9F0B2DB237210011D191 /* User.swift in Sources */,
 				4C396D622DB535E80040756F /* CustomTabView.swift in Sources */,

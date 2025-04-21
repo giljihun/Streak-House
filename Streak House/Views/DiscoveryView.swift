@@ -12,7 +12,7 @@ struct DiscoveryView: View {
         VStack(alignment: .leading, spacing: 0) {
             
             Text("Discovery")
-                .font(.system(size: 24, weight: .semibold))
+                .font(.system(size: 32, weight: .semibold))
                 .padding([.top, .bottom], 12)
                 .padding(.bottom, 2)
                 .padding(.horizontal, 16)

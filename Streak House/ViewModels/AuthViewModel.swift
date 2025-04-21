@@ -13,7 +13,9 @@ import AuthenticationServices
 import FirebaseAuth
 import CryptoKit
 
-class AuthViewModel: NSObject, ObservableObject {
+@MainActor
+class AuthViewModel: NSObject, ObservableObject,Sendable {
+    @EnvironmentObject var viewModel: AuthViewModel
     @Published var currentUser: User?
     @Published var isAuthenticated = false
     @Published var error: Error?
