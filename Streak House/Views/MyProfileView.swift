@@ -115,6 +115,17 @@ struct MyProfileView: View {
             }
             .frame(maxWidth: .infinity)
             .background(Color(#colorLiteral(red: 0.9755851626, green: 0.9805569053, blue: 0.9847741723, alpha: 1)))
+            .overlay {
+                if viewModel.isLoading {
+                    Color.black.opacity(0.3)
+                        .ignoresSafeArea()
+                    ProgressView("Processing...")
+                        .padding()
+                        .background(Color.white)
+                        .cornerRadius(10)
+                        .shadow(radius: 5)
+                }
+            }
         }
     }
     

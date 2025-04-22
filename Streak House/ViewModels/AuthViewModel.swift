@@ -20,6 +20,7 @@ class AuthViewModel: NSObject, ObservableObject,Sendable {
     @Published var isAuthenticated = false
     @Published var error: Error?
     @Published var isLoading = false
+    @AppStorage("didSelectInterests") private var didSelectInterests: Bool = false
     
     private let authService = AuthService()
     
@@ -38,12 +39,16 @@ class AuthViewModel: NSObject, ObservableObject,Sendable {
     
     // 로그아웃
     func signOut() {
+        isLoading = true
         do {
             try authService.signOut()
             self.currentUser = nil
             self.isAuthenticated = false
+            // self.didSelectInterests = false
+            self.isLoading = false
         } catch {
             self.error = error
+            self.isLoading = false
         }
     }
     
@@ -269,6 +274,7 @@ extension AuthViewModel: ASAuthorizationControllerDelegate {
                     DispatchQueue.main.async {
                         self.currentUser = nil
                         self.isAuthenticated = false
+                        self.didSelectInterests = false
                         self.isLoading = false
                     }
                 } catch {

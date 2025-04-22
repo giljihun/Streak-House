@@ -91,7 +91,7 @@ struct CreateModalView: View {
                         ZStack {
                             TextField("Typing your GOAL", text: $goalText)
                                 .padding(.vertical, 10)
-                                .padding(.horizontal, 8)
+                                .padding(.horizontal, 12)
                                 .background(Color(.systemGray5))
                                 .cornerRadius(8)
                                 .font(.system(size: 18, weight: .medium))

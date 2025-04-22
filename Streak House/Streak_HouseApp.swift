@@ -35,10 +35,6 @@ struct Streak_HouseApp: App {
                 if !viewModel.isAuthenticated {
                     LoginView(didSelectInterests: $didSelectInterests)
                         .environmentObject(viewModel)
-                    // 계정 삭제, 계정 변경 시. 버그 발생 방지!
-                        .onAppear {
-                                didSelectInterests = false
-                            }
                 } else if !didSelectInterests {
                     InterestsView(didSelectInterests: $didSelectInterests)
                         .environmentObject(viewModel)
