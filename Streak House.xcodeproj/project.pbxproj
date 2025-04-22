@@ -10,6 +10,8 @@
 		4C05809B2DB60372001C6F26 /* CreateModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C05809A2DB60372001C6F26 /* CreateModalView.swift */; };
 		4C396D622DB535E80040756F /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C396D612DB535E80040756F /* CustomTabView.swift */; };
 		4C3A7A282DB6AB42005DAEA2 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A7A272DB6AB42005DAEA2 /* Keyboard.swift */; };
+		4C3A7A2A2DB7BD2B005DAEA2 /* FirestoreUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A7A292DB7BD2B005DAEA2 /* FirestoreUser.swift */; };
+		4C3A7A2C2DB7C0EE005DAEA2 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A7A2B2DB7C0EE005DAEA2 /* UserViewModel.swift */; };
 		4CFD9E742DAFE6390011D191 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFD9E732DAFE6390011D191 /* FirebaseAnalytics */; };
 		4CFD9E762DAFE6390011D191 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFD9E752DAFE6390011D191 /* FirebaseAuth */; };
 		4CFD9E782DAFE6390011D191 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFD9E772DAFE6390011D191 /* FirebaseCore */; };
@@ -41,6 +43,8 @@
 		4C05809A2DB60372001C6F26 /* CreateModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateModalView.swift; sourceTree = "<group>"; };
 		4C396D612DB535E80040756F /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
 		4C3A7A272DB6AB42005DAEA2 /* Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
+		4C3A7A292DB7BD2B005DAEA2 /* FirestoreUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreUser.swift; sourceTree = "<group>"; };
+		4C3A7A2B2DB7C0EE005DAEA2 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		4CFD9E4D2DAFE0A90011D191 /* Streak House.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Streak House.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CFD9EF02DB237210011D191 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4CFD9EF22DB237210011D191 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -108,6 +112,7 @@
 		4CFD9EF12DB237210011D191 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4C3A7A292DB7BD2B005DAEA2 /* FirestoreUser.swift */,
 				4CFD9EF02DB237210011D191 /* User.swift */,
 			);
 			path = Models;
@@ -141,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				4CFD9EF82DB237210011D191 /* AuthViewModel.swift */,
+				4C3A7A2B2DB7C0EE005DAEA2 /* UserViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -276,6 +282,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C3A7A2A2DB7BD2B005DAEA2 /* FirestoreUser.swift in Sources */,
 				4C05809B2DB60372001C6F26 /* CreateModalView.swift in Sources */,
 				4CFD9F1E2DB2AA9B0011D191 /* ChipsContainerView.swift in Sources */,
 				4CFD9F0B2DB237210011D191 /* User.swift in Sources */,
@@ -289,6 +296,7 @@
 				4CFD9F112DB237210011D191 /* LoginView.swift in Sources */,
 				4CFD9F122DB237210011D191 /* MyProfileView.swift in Sources */,
 				4CFD9F132DB237210011D191 /* OnBoardingView.swift in Sources */,
+				4C3A7A2C2DB7C0EE005DAEA2 /* UserViewModel.swift in Sources */,
 				4CFD9F142DB237210011D191 /* StreaksView.swift in Sources */,
 				4CFD9F152DB237210011D191 /* Streak_HouseApp.swift in Sources */,
 			);

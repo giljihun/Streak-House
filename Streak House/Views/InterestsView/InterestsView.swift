@@ -8,8 +8,7 @@ import SwiftUI
 
 struct InterestsView: View {
     
-    @Binding var didSelectInterests: Bool
-    @EnvironmentObject var viewModel: AuthViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
     
     
 //    1.    Growth
@@ -47,7 +46,7 @@ struct InterestsView: View {
                 Spacer()
                 
                 Button(action: {
-                    didSelectInterests = true
+                    userViewModel.saveUserInterests(Array(selectedInterests))
                 }) {
                     Text("Continue ( \(selectedInterests.count) selected )")
                         .frame(maxWidth: .infinity, minHeight: 43)
@@ -64,5 +63,6 @@ struct InterestsView: View {
 }
 
 #Preview {
-    InterestsView(didSelectInterests: .constant(false) )
+    InterestsView()
+        .environmentObject(UserViewModel())
 }

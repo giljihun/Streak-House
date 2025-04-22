@@ -1,10 +1,3 @@
-//
-//  Streak_HouseApp.swift
-//  Streak House
-//
-//  Created by 길지훈 on 4/16/25.
-//
-
 import SwiftUI
 import FirebaseCore
 import FirebaseAuth
@@ -26,24 +19,32 @@ struct Streak_HouseApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
     @StateObject var viewModel = AuthViewModel()
+    @StateObject var userViewModel = UserViewModel()
     
-    @AppStorage("didSelectInterests") private var didSelectInterests: Bool = false
-
     var body: some Scene {
         WindowGroup {
             NavigationStack {
                 if !viewModel.isAuthenticated {
-                    LoginView(didSelectInterests: $didSelectInterests)
+                    LoginView()
                         .environmentObject(viewModel)
-                } else if !didSelectInterests {
-                    InterestsView(didSelectInterests: $didSelectInterests)
+                        .environmentObject(userViewModel)
+                } else if userViewModel.isLoading {
+                    // 아무것도 없어도 될듯?
+                    // 어차피 앱이 커지는 화면 보이니까..?
+                } else if !userViewModel.didSelectInterests {
+                    InterestsView()
                         .environmentObject(viewModel)
+                        .environmentObject(userViewModel)
                 } else {
                     CustomTabView()
                         .environmentObject(viewModel)
+                        .environmentObject(userViewModel)
                 }
             }
             .navigationBarBackButtonHidden(true)
+            .onAppear {
+                userViewModel.fetchUserState()
+            }
         }
     }
 }

@@ -7,20 +7,35 @@
 // AuthViewModel: 로그인 흐름 관리 및 UI 상태 처리
 // AuthService: Firebase 인증 관련 API 호출 담당
 
+/*
+ [🔥 AuthViewModel.swift - 파이어베이스 연동 흐름 요약]
+
+ 1. Apple 로그인 시작 → startSignInWithAppleFlow()
+ 2. Apple 로그인 성공 후 Firebase 로그인 및 사용자 Firestore에 저장
+ 3. 사용자 관심사 선택 시 Firestore에 업데이트 → saveUserInterests(_:)
+ */
+
 import Foundation
 import SwiftUI
 import AuthenticationServices
 import FirebaseAuth
 import CryptoKit
+import FirebaseFirestore
 
 @MainActor
 class AuthViewModel: NSObject, ObservableObject,Sendable {
-    @EnvironmentObject var viewModel: AuthViewModel
+    enum AuthMode {
+        case login
+        case delete
+    }
+
+    private var authMode: AuthMode = .login
+
     @Published var currentUser: User?
     @Published var isAuthenticated = false
     @Published var error: Error?
     @Published var isLoading = false
-    @AppStorage("didSelectInterests") private var didSelectInterests: Bool = false
+    @Published var didSelectInterests: Bool = false
     
     private let authService = AuthService()
     
@@ -80,8 +95,16 @@ class AuthViewModel: NSObject, ObservableObject,Sendable {
         return hashString
     }
     
+    func prepareAppleSignIn() -> String {
+        authMode = .login
+        let nonce = randomNonceString()
+        currentNonce = nonce
+        return sha256(nonce)
+    }
+    
     // Apple 로그인 시작
     func startSignInWithAppleFlow() {
+        authMode = .login
         let nonce = randomNonceString()
         currentNonce = nonce
         
@@ -98,6 +121,7 @@ class AuthViewModel: NSObject, ObservableObject,Sendable {
     
     // 계정 삭제
     func deleteAccount() {
+        authMode = .delete
         // Apple 로그인을 통해 인증 코드를 다시 가져와야 함
         let nonce = randomNonceString()
         currentNonce = nonce
@@ -112,6 +136,7 @@ class AuthViewModel: NSObject, ObservableObject,Sendable {
         authorizationController.presentationContextProvider = self
         authorizationController.performRequests()
     }
+    
 }
 
 // MARK: - ASAuthorizationControllerDelegate
@@ -120,8 +145,7 @@ extension AuthViewModel: ASAuthorizationControllerDelegate {
         isLoading = true
         
         // 계정 삭제 모드인 경우
-        if let _ = Auth.auth().currentUser {
-            // 계정 삭제를 진행 중인 경우
+        if authMode == .delete {
             handleAccountDeletion(authorization: authorization)
             return
         }
@@ -169,6 +193,29 @@ extension AuthViewModel: ASAuthorizationControllerDelegate {
                         self.currentUser = appUser
                         self.isAuthenticated = true
                         self.isLoading = false
+                    }
+                    
+                    let db = Firestore.firestore()
+                    let docRef = db.collection("users").document(user.uid)
+
+                    docRef.getDocument { snapshot, error in
+                        if let snapshot = snapshot, snapshot.exists {
+                            print("✅ Firestore: 사용자 확인! - \(user.uid)")
+                        } else {
+                            let newUser = FirestoreUser(
+                                id: user.uid,
+                                email: user.email ?? "",
+                                displayName: user.displayName ?? "사용자",
+                                photoURL: user.photoURL?.absoluteString
+                            )
+
+                            do {
+                                try docRef.setData(from: newUser)
+                                print("✅ Firestore: 사용자 정보 저장 성공")
+                            } catch {
+                                print("❌ Firestore: 사용자 저장 실패 - \(error)")
+                            }
+                        }
                     }
                 } else {
                     self.isLoading = false
@@ -270,6 +317,16 @@ extension AuthViewModel: ASAuthorizationControllerDelegate {
                     
                     // 계정 삭제
                     try await Auth.auth().currentUser?.delete()
+                    
+                    // Firestore 사용자 문서 삭제
+                    let uid = currentUser.uid
+                    Firestore.firestore().collection("users").document(uid).delete { error in
+                        if let error = error {
+                            print("❌ Firestore 사용자 문서 삭제 실패: \(error.localizedDescription)")
+                        } else {
+                            print("✅ Firestore 사용자 문서 삭제 완료")
+                        }
+                    }
                     
                     DispatchQueue.main.async {
                         self.currentUser = nil

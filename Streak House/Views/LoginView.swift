@@ -12,7 +12,6 @@ import AuthenticationServices
 
 struct LoginView: View {
     @EnvironmentObject var viewModel: AuthViewModel
-    @Binding var didSelectInterests: Bool
     @State private var showLogo = false
     @State private var showTitle = false
     @State private var showSubtitle = false
@@ -110,5 +109,5 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView(didSelectInterests: .constant(false))
+    LoginView()
 }

@@ -37,7 +37,7 @@ struct MyProfileView: View {
                                 .fill(Color.gray.opacity(0.3))
                                 .frame(width: 70, height: 70)
                             VStack(alignment: .leading, spacing: 4) {
-                                Text(viewModel.currentUser?.displayName ?? "Unknown user")
+                                Text(viewModel.currentUser?.displayName ?? "Bye Bro. 👋")
                                     .font(.system(size: 20, weight: .semibold))
                                 Text("Consistency is key 🔥")
                                     .font(.system(size: 14))
