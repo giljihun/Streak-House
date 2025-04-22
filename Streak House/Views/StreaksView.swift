@@ -19,7 +19,6 @@ struct StreaksView: View {
             Text("Streaks")
                 .font(.system(size: 32, weight: .semibold))
                 .padding([.top, .bottom], 12)
-                .padding(.bottom, 2)
                 .padding(.horizontal, 16)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
@@ -86,6 +85,7 @@ struct StreaksView: View {
                                     .background(Color.blue)
                                     .cornerRadius(10)
                                 }
+                                .padding(.bottom, 16)
                             }
                             .sheet(isPresented: self.$showCreateModal) {
                                 CreateModalView()
@@ -151,6 +151,7 @@ struct StreaksView: View {
                                 .background(Color.blue.opacity(0.1))
                                 .cornerRadius(10)
                             }
+                            .padding(.bottom, 16)
                         }
                         .padding()
                         .background(Color.white)
@@ -164,8 +165,9 @@ struct StreaksView: View {
                 }
             }
             .frame(maxWidth: .infinity)
-            .background(Color(#colorLiteral(red: 0.9755851626, green: 0.9805569053, blue: 0.9847741723, alpha: 1)))
+            .background(Color(#colorLiteral(red: 0.9756051898, green: 0.9805480838, blue: 0.9847753644, alpha: 1)))
         }
+        //.padding(.bottom, 8)
     }
 }
 

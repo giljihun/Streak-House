@@ -9,8 +9,14 @@ import SwiftUI
 struct CustomTabView: View {
     @State private var selectedTab = 0
     @EnvironmentObject var viewModel: AuthViewModel
-
+    
+    init() {
+        UITabBar.appearance().backgroundColor = UIColor.white
+    }
+    
+    
     var body: some View {
+        
         TabView(selection: $selectedTab) {
             StreaksView(selectedTab: $selectedTab)
                 .tabItem {

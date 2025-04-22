@@ -14,7 +14,6 @@ struct ActivityView: View {
             Text("Activities")
                 .font(.system(size: 32, weight: .semibold))
                 .padding([.top, .bottom], 12)
-                .padding(.bottom, 2)
                 .padding(.horizontal, 16)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
@@ -24,12 +23,11 @@ struct ActivityView: View {
                     
                 }
                 Spacer(minLength: 50)
+                
             }
             .frame(maxWidth: .infinity)
+            .background(Color(#colorLiteral(red: 0.9756051898, green: 0.9805480838, blue: 0.9847753644, alpha: 1)))
         }
-        .background(Color(#colorLiteral(red: 0.9755851626, green: 0.9805569053, blue: 0.9847741723, alpha: 1)))
-        
-        // Spacer()
     }
 }
 

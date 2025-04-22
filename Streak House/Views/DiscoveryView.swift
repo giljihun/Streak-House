@@ -17,23 +17,22 @@ struct DiscoveryView: View {
             Text("Discovery")
                 .font(.system(size: 32, weight: .semibold))
                 .padding([.top, .bottom], 12)
-                .padding(.bottom, 2)
                 .padding(.horizontal, 16)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
+            // MARK: - 카테고리 피커
+            Picker("Category", selection: $selectedCategory) {
+                Text("All").tag("All")
+                Text("Study").tag("Study")
+                Text("Health").tag("Health")
+                Text("Creativity").tag("Creativity")
+                Text("Fun").tag("Fun")
+            }
+            .pickerStyle(.segmented)
+            .padding([.horizontal, .bottom], 16)
+            //.padding(.bottom, -8)
+            
             VStack {
-                // MARK: - 카테고리 피커
-                Picker("Category", selection: $selectedCategory) {
-                    Text("All").tag("All")
-                    Text("Study").tag("Study")
-                    Text("Health").tag("Health")
-                    Text("Creativity").tag("Creativity")
-                    Text("Fun").tag("Fun")
-                }
-                .pickerStyle(.segmented)
-                .padding([.horizontal, .vertical], 16)
-                .padding(.bottom, -8)
-                
                 ScrollView {
                     VStack(alignment: .leading) {
                         
@@ -50,13 +49,10 @@ struct DiscoveryView: View {
                         }
                         .padding([.horizontal, .vertical], 16)
                         
-                        Spacer(minLength: 50)
                     }
-                    .frame(maxWidth: .infinity)
                 }
-                
-                // Spacer()
             }
+            .frame(maxWidth: .infinity)
             .background(Color(#colorLiteral(red: 0.9755851626, green: 0.9805569053, blue: 0.9847741723, alpha: 1)))
         }
     }
