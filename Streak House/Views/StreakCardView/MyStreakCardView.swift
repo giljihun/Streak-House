@@ -39,69 +39,70 @@ struct MyStreakCardView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack(alignment: .top) {
-                HStack(spacing: 6) {
-                    Image(systemName: streak.icon)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 36, height: 36)
-                        .foregroundColor(Color(hex: streak.iconColorHex) ?? .black)
+        ZStack(alignment: .topTrailing) {
+            VStack(alignment: .leading, spacing: 12) {
+                HStack {
+                    HStack(spacing: 10) {
+                        Image(systemName: streak.icon)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 28, height: 28)
+                            .foregroundColor(Color(hex: streak.iconColorHex) ?? .black)
 
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text(streak.title)
-                            .font(.system(size: 20, weight: .semibold))
-                            .foregroundColor(.primary)
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(streak.title)
+                                .font(.system(size: 18, weight: .semibold))
+                                .foregroundColor(.primary)
 
-                        Text(durationText)
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
+                            Text(durationText + "")
+                                .font(.caption)
+                                .foregroundColor(.gray)
+                        }
+                    }
+
+                    Spacer()
+
+                    HStack(spacing: 4) {
+                        Image(systemName: "pin.fill")
+                            .font(.system(size: 13))
+                            .foregroundColor(.gray.opacity(0.6))
+                        Text(formatCount(streak.pinnedCount))
+                            .font(.caption)
+                            .foregroundColor(.gray.opacity(0.6))
+                    }
+                    .padding(.trailing, 18)
+                }
+
+                HStack {
+                    Text(cheerMessage)
+                        .font(.footnote)
+                        .foregroundColor(.gray)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        print("Streak completed tapped")
+                    }) {
+                        HStack(spacing: 6) {
+                            Image(systemName: "flame.fill")
+                                .font(.system(size: 18, weight: .bold))
+                                .foregroundColor(isCompleted ? .white : .orange)
+                            Text("\(streak.streakCount)")
+                                .font(.system(size: 16, weight: .bold))
+                                .foregroundColor(isCompleted ? .white : .orange)
+                        }
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 6)
+                        .background(isCompleted ? Color.orange : Color.orange.opacity(0.15))
+                        .cornerRadius(16)
                     }
                 }
-
-                Spacer()
-
-                HStack(spacing: 3) {
-                    Image(systemName: "pin.fill")
-                        .font(.system(size: 14))
-                        .foregroundColor(.gray.opacity(0.6))
-                    Text(formatCount(streak.pinnedCount))
-                        .font(.caption)
-                        .foregroundColor(.gray.opacity(0.6))
-                }
-                .padding(.top, 24)
-                .padding(.trailing, 20)
             }
-
-            HStack {
-                Text(cheerMessage)
-                    .font(.footnote)
-                    .foregroundColor(.gray)
-
-                Spacer()
-
-                Button(action: {
-                    print("Streak completed tapped")
-                }) {
-                    HStack(spacing: 6) {
-                        Image(systemName: "flame.fill")
-                            .font(.system(size: 20, weight: .medium))
-                            .foregroundColor(isCompleted ? .white : .orange)
-                        Text("\(streak.streakCount)")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(isCompleted ? .white : .orange)
-                    }
-                    .padding(.horizontal, 20)
-                    .frame(height: 40)
-                    .background(isCompleted ? Color.orange : Color.orange.opacity(0.15))
-                    .cornerRadius(18)
-                }
-            }
+            .padding(16)
+            .background(Color.white)
+            .cornerRadius(14)
+            .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
         }
-        .padding(12)
-        .background(Color.white)
-        .cornerRadius(12)
-        .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
     }
 }
 
