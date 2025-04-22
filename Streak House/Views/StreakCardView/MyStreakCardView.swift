@@ -107,6 +107,8 @@ struct MyStreakCardView: View {
 }
 
 private func formatCount(_ count: Int) -> String {
+    
+    // MARK: - 밀리언 단위도 추가?ㅋㅋ
     if count >= 1000 {
         let formatted = Double(count) / 1000
         return String(format: "%.1fk", formatted)
@@ -127,7 +129,7 @@ private func formatCount(_ count: Int) -> String {
             createdBy: "user123",
             lastCheckedAt: nil,
             streakCount: 90,
-            pinnedCount: 210,
+            pinnedCount: 1210,
             cheeredCount: 5,
             iconColorHex: Color.red.toHex()
         )

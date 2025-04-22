@@ -18,6 +18,7 @@ struct FirestoreUser: Identifiable, Codable {
     var didSelectInterests: Bool
     var interests: [String]
     var joinedAt: Date
+    var pinnedStreakIDs: [String] = []
     
     init(id: String, email: String, displayName: String, photoURL: String? = nil) {
         self.id = id
@@ -27,5 +28,6 @@ struct FirestoreUser: Identifiable, Codable {
         self.didSelectInterests = false
         self.interests = []
         self.joinedAt = Date()
+        self.pinnedStreakIDs = []
     }
 }

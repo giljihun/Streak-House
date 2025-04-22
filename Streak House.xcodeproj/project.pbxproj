@@ -17,6 +17,7 @@
 		4C3A7A332DB7FE03005DAEA2 /* MyStreakCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A7A322DB7FE03005DAEA2 /* MyStreakCardView.swift */; };
 		4C3A7A352DB7FE14005DAEA2 /* PinnedStreakCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A7A342DB7FE14005DAEA2 /* PinnedStreakCardView.swift */; };
 		4C3A7A372DB80EEE005DAEA2 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A7A362DB80EEE005DAEA2 /* ColorExtensions.swift */; };
+		4C3A7A392DB81547005DAEA2 /* PinnedStreaksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A7A382DB81547005DAEA2 /* PinnedStreaksViewModel.swift */; };
 		4CFD9E742DAFE6390011D191 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFD9E732DAFE6390011D191 /* FirebaseAnalytics */; };
 		4CFD9E762DAFE6390011D191 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFD9E752DAFE6390011D191 /* FirebaseAuth */; };
 		4CFD9E782DAFE6390011D191 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFD9E772DAFE6390011D191 /* FirebaseCore */; };
@@ -55,6 +56,7 @@
 		4C3A7A322DB7FE03005DAEA2 /* MyStreakCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStreakCardView.swift; sourceTree = "<group>"; };
 		4C3A7A342DB7FE14005DAEA2 /* PinnedStreakCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinnedStreakCardView.swift; sourceTree = "<group>"; };
 		4C3A7A362DB80EEE005DAEA2 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
+		4C3A7A382DB81547005DAEA2 /* PinnedStreaksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinnedStreaksViewModel.swift; sourceTree = "<group>"; };
 		4CFD9E4D2DAFE0A90011D191 /* Streak House.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Streak House.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CFD9EF02DB237210011D191 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4CFD9EF22DB237210011D191 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				4CFD9EF82DB237210011D191 /* AuthViewModel.swift */,
 				4C3A7A2B2DB7C0EE005DAEA2 /* UserViewModel.swift */,
 				4C3A7A2F2DB7E685005DAEA2 /* CreateStreakViewModel.swift */,
+				4C3A7A382DB81547005DAEA2 /* PinnedStreaksViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 				4C396D622DB535E80040756F /* CustomTabView.swift in Sources */,
 				4CFD9F0C2DB237210011D191 /* AuthService.swift in Sources */,
 				4CFD9F0D2DB237210011D191 /* AuthViewModel.swift in Sources */,
+				4C3A7A392DB81547005DAEA2 /* PinnedStreaksViewModel.swift in Sources */,
 				4C3A7A2E2DB7E2D0005DAEA2 /* Streak.swift in Sources */,
 				4CFD9F0E2DB237210011D191 /* ActivityView.swift in Sources */,
 				4C3A7A282DB6AB42005DAEA2 /* KeyboardExtensions.swift in Sources */,
