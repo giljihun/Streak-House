@@ -15,6 +15,7 @@ struct Streak: Identifiable, Codable {
     var goalTime: Int
     var icon: String
     var createdAt: Date
+    // 소유자 UUID
     var createdBy: String
     var lastCheckedAt: Date?
     var streakCount: Int
