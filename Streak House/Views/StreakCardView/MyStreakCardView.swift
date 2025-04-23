@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct MyStreakCardView: View {
+    @EnvironmentObject var viewModel: MyStreaksViewModel
     let streak: Streak
+    let onCelebrate: () -> Void
+    @State private var isPressed = false
 
     var durationText: String {
         let hours = streak.goalTime / 60
@@ -39,7 +42,7 @@ struct MyStreakCardView: View {
     }
 
     var isCompleted: Bool {
-        false
+        streak.isCompletedToday
     }
 
     var body: some View {
@@ -64,17 +67,40 @@ struct MyStreakCardView: View {
                         }
                     }
 
-                    Spacer()
+//                    Spacer()
 
-                    HStack(spacing: 4) {
-                        Image(systemName: "pin.fill")
-                            .font(.system(size: 13))
-                            .foregroundColor(.gray.opacity(0.6))
-                        Text(formatCount(streak.pinnedCount))
-                            .font(.caption)
-                            .foregroundColor(.gray.opacity(0.6))
+                    if streak.pinnedCount > 0 {
+                        HStack(spacing: 4) {
+                            Image(systemName: "pin.fill")
+                                .font(.system(size: 13))
+                                .foregroundColor(.gray.opacity(0.6))
+                            Text(formatCount(streak.pinnedCount))
+                                .font(.caption)
+                                .foregroundColor(.gray.opacity(0.6))
+                        }
+                        .padding(.trailing, 8)
+                        .padding(.bottom, 16)
                     }
-                    .padding(.trailing, 18)
+                    
+                        Spacer()
+                        
+                        Menu {
+                            Button("Edit") {
+                                viewModel.startEditing(streak)
+                            }
+
+                            Button(role: .destructive) {
+                                viewModel.deleteStreak(streak)
+                            } label: {
+                                Text("Delete")
+                            }
+                        } label: {
+                            Image(systemName: "ellipsis")
+                                .rotationEffect(.degrees(90))
+                                .foregroundColor(.gray)
+                                .padding(.trailing, 4)
+                                .padding(.bottom, 16)
+                        }
                 }
 
                 HStack {
@@ -85,23 +111,32 @@ struct MyStreakCardView: View {
                     Spacer()
                     
                     Button(action: {
-                        // TODO: 탭했을 때 로직 구현
-                        
-                        
-                        print("Streak completed tapped")
+                        withAnimation(.easeIn(duration: 0.15)) {
+                            isPressed = true
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            isPressed = false
+                            viewModel.completeStreak(streak)
+                            if !streak.isCompletedToday {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                    onCelebrate()
+                                }
+                            }
+                        }
                     }) {
                         HStack(spacing: 6) {
                             Image(systemName: "flame.fill")
                                 .font(.system(size: 18, weight: .bold))
-                                .foregroundColor(isCompleted ? .orange : .gray)
+                                .foregroundColor(isCompleted ? Color(#colorLiteral(red: 0.9749493003, green: 0.4522024989, blue: 0.08381486684, alpha: 1)) : Color(#colorLiteral(red: 0.4670161009, green: 0.4422878027, blue: 0.4297846556, alpha: 1)))
                             Text("\(streak.streakCount)")
                                 .font(.system(size: 16, weight: .bold))
-                                .foregroundColor(isCompleted ? .orange : .gray)
+                                .foregroundColor(isCompleted ? Color(#colorLiteral(red: 0.9749493003, green: 0.4522024989, blue: 0.08381486684, alpha: 1)) : Color(#colorLiteral(red: 0.4670161009, green: 0.4422878027, blue: 0.4297846556, alpha: 1)))
                         }
                         .padding(.horizontal, 14)
                         .padding(.vertical, 6)
-                        .background(isCompleted ? Color.orange : Color.orange.opacity(0.15))
+                        .background(isCompleted ? Color(#colorLiteral(red: 1, green: 0.9309260249, blue: 0.8366528153, alpha: 1)) : Color(#colorLiteral(red: 1, green: 0.9309260249, blue: 0.8366528153, alpha: 1)))
                         .cornerRadius(16)
+                        .scaleEffect(isPressed ? 0.95 : 1.0)
                     }
                 }
             }
@@ -140,7 +175,27 @@ private func formatCount(_ count: Int) -> String {
             pinnedCount: 1210,
             cheeredCount: 5,
             iconColorHex: Color.red.toHex()
-        )
+        ),
+        onCelebrate: { }
     )
     .padding()
+    .environmentObject(MyStreaksViewModel())
+}
+
+extension View {
+    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+        clipShape(RoundedCorner(radius: radius, corners: corners))
+    }
+}
+
+struct RoundedCorner: Shape {
+    var radius: CGFloat = 0
+    var corners: UIRectCorner = .allCorners
+
+    func path(in rect: CGRect) -> Path {
+        let path = UIBezierPath(roundedRect: rect,
+                                byRoundingCorners: corners,
+                                cornerRadii: CGSize(width: radius, height: radius))
+        return Path(path.cgPath)
+    }
 }

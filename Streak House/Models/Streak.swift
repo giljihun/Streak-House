@@ -16,11 +16,21 @@ struct Streak: Identifiable, Codable {
     var alarmTime: Int
     var icon: String
     var createdAt: Date
+    
     // 소유자 UUID
     var createdBy: String
+    var creatorDisplayName: String?
+    
     var lastCheckedAt: Date?
     var streakCount: Int
     var pinnedCount: Int
     var cheeredCount: Int
     var iconColorHex: String
+    
+    var isCompletedToday: Bool {
+        guard let lastCheckedAt else {
+            return false
+        }
+        return Calendar.current.isDateInToday(lastCheckedAt)
+    }
 }

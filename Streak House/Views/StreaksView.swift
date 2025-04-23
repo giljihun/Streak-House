@@ -9,6 +9,7 @@ import FirebaseAuth
 
 struct StreaksView: View {
     @Binding var selectedTab: Int
+    var onCelebrate: (Streak) -> Void
     @State private var showCreateModal = false
     @StateObject var myViewModel = MyStreaksViewModel()
     @StateObject var pinViewModel = PinnedStreaksViewModel()
@@ -41,7 +42,6 @@ struct StreaksView: View {
                         
                         if !emptyStreaks {
                             Button {
-                                // TODO: - Create 버튼
                                 self.showCreateModal = true
                             } label: {
                                 Image(systemName: "note.text.badge.plus")
@@ -108,9 +108,12 @@ struct StreaksView: View {
                         }
                     } else {
                         ForEach(myViewModel.myStreaks) { streak in
-                            MyStreakCardView(streak: streak)
-                                .padding(.horizontal, 16)
-                                .padding(.bottom, 12)
+                            MyStreakCardView(streak: streak, onCelebrate: {
+                                onCelebrate(streak)
+                            })
+                            .padding(.horizontal, 16)
+                            .padding(.bottom, 12)
+                            .environmentObject(myViewModel)
                         }
                     }
                 }
@@ -203,5 +206,5 @@ struct StreaksView: View {
 
 
 #Preview {
-    StreaksView(selectedTab: .constant(0))
+    StreaksView(selectedTab: .constant(0), onCelebrate: { _ in })
 }

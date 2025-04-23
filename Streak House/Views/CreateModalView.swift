@@ -79,24 +79,21 @@ struct CreateModalView: View {
                     .padding(.top, 4)
                     .padding(.bottom, 16)
                     
-                    HStack {
-                        Image(systemName: categoryIconName)
+                    HStack(spacing: 12) {
+                        Image(systemName: viewModel.categoryIconName)
                             .resizable()
                             .scaledToFit()
                             .frame(width: 36, height: 36)
                             .foregroundColor(viewModel.iconColor)
-                            .padding(.horizontal, 4)
-                        
-                        ZStack {
-                            TextField("Typing your GOAL", text: $viewModel.goalText)
-                                .padding(.vertical, 10)
-                                .padding(.horizontal, 12)
-                                .background(Color(.systemGray5))
-                                .cornerRadius(8)
-                                .font(.system(size: 18, weight: .medium))
-                                .foregroundColor(.primary)
-                        }
+
+                        TextField("Typing your GOAL", text: $viewModel.goalText)
+                            .padding(10)
+                            .background(Color(.systemGray5))
+                            .cornerRadius(8)
+                            .font(.system(size: 18, weight: .medium))
+                            .foregroundColor(.primary)
                     }
+                    .padding(.horizontal, 4)
                     .padding(.bottom, 16)
                     
                     // MARK: - 시간 입력
@@ -145,13 +142,14 @@ struct CreateModalView: View {
                 .padding(.trailing, 8)
                 .padding(.bottom, 16)
             }
+            .padding()
         }
         .scrollDismissesKeyboard(.interactively)
-        .padding()
-        .background(Color(.systemGray6).ignoresSafeArea())
         .onTapGesture {
             UIApplication.shared.hideKeyboard()
         }
+        .background(Color(.systemGray6)
+        .ignoresSafeArea())
     }
 }
 

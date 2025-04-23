@@ -31,7 +31,7 @@ class AuthViewModel: NSObject, ObservableObject,Sendable {
 
     private var authMode: AuthMode = .login
 
-    @Published var currentUser: User?
+    @Published var currentUser: FirestoreUser?
     @Published var isAuthenticated = false
     @Published var error: Error?
     @Published var isLoading = false
@@ -48,8 +48,27 @@ class AuthViewModel: NSObject, ObservableObject,Sendable {
     }
     
     func checkAuthStatus() {
-        self.currentUser = authService.getCurrentUser()
-        self.isAuthenticated = currentUser != nil
+        if let firebaseUser = Auth.auth().currentUser {
+            let uid = firebaseUser.uid
+            Firestore.firestore().collection("users").document(uid).getDocument { snapshot, error in
+                if let document = snapshot, document.exists {
+                    do {
+                        let user = try document.data(as: FirestoreUser.self)
+                        self.currentUser = user
+                        self.isAuthenticated = true
+                    } catch {
+                        print("❌ FirestoreUser decoding error: \(error)")
+                        self.isAuthenticated = false
+                    }
+                } else {
+                    print("❌ No Firestore user document found.")
+                    self.isAuthenticated = false
+                }
+            }
+        } else {
+            self.currentUser = nil
+            self.isAuthenticated = false
+        }
     }
     
     // 로그아웃
@@ -189,10 +208,23 @@ extension AuthViewModel: ASAuthorizationControllerDelegate {
                         // 이메일에서 사용자 이름 추출
                         self.updateUserDisplayNameWithEmail(user: user)
                     } else {
-                        let appUser = User(user: user)
-                        self.currentUser = appUser
-                        self.isAuthenticated = true
-                        self.isLoading = false
+                        let uid = user.uid
+                        Firestore.firestore().collection("users").document(uid).getDocument { snapshot, error in
+                            if let snapshot = snapshot, snapshot.exists {
+                                do {
+                                    let user = try snapshot.data(as: FirestoreUser.self)
+                                    self.currentUser = user
+                                    self.isAuthenticated = true
+                                } catch {
+                                    print("❌ FirestoreUser decoding error: \(error)")
+                                    self.isAuthenticated = false
+                                }
+                            } else {
+                                print("❌ No Firestore user document found.")
+                                self.isAuthenticated = false
+                            }
+                            self.isLoading = false
+                        }
                     }
                 } else {
                     self.isLoading = false
@@ -225,8 +257,14 @@ extension AuthViewModel: ASAuthorizationControllerDelegate {
                 }
                 
                 // 이름 업데이트 후 사용자 정보 갱신
-                let appUser = User(user: user)
-                self.currentUser = appUser
+                let uid = user.uid
+                let firestoreUser = FirestoreUser(
+                    id: uid,
+                    email: user.email ?? "",
+                    displayName: username,
+                    photoURL: user.photoURL?.absoluteString
+                )
+                self.currentUser = firestoreUser
                 self.isAuthenticated = true
                 self.isLoading = false
                 
@@ -237,15 +275,8 @@ extension AuthViewModel: ASAuthorizationControllerDelegate {
                     if let snapshot = snapshot, snapshot.exists {
                         print("✅ Firestore: 사용자 확인! - \(user.uid)")
                     } else {
-                        let newUser = FirestoreUser(
-                            id: user.uid,
-                            email: user.email ?? "",
-                            displayName: user.displayName ?? "사용자",
-                            photoURL: user.photoURL?.absoluteString
-                        )
-
                         do {
-                            try docRef.setData(from: newUser)
+                            try docRef.setData(from: firestoreUser)
                             print("✅ Firestore: 사용자 정보 저장 성공")
                         } catch {
                             print("❌ Firestore: 사용자 저장 실패 - \(error)")

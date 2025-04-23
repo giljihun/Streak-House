@@ -45,7 +45,7 @@ class CreateStreakViewModel: ObservableObject {
             icon: categoryIconName,
             createdAt: Date(),
             createdBy: userId,
-            lastCheckedAt: Date(),
+            lastCheckedAt: nil,
             streakCount: 0,
             pinnedCount: 0,
             cheeredCount: 0,
