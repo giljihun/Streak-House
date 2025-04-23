@@ -1,4 +1,3 @@
-//
 //  PinnedStreakCardView.swift
 //  Streak House
 //
@@ -58,6 +57,26 @@ struct PinnedStreakCardView: View {
                         .cornerRadius(20)
                 }
                 .disabled(isCheered)
+            }
+
+            Menu {
+                Button(role: .destructive) {
+                    onUnpin()
+                } label: {
+                    Text("Unpin")
+                }
+                
+                Button(role: .destructive) {
+                    //
+                } label: {
+                    Text("Hi, I'm Gil 👋")
+                }
+                
+            } label: {
+                Image(systemName: "ellipsis")
+                    .rotationEffect(.degrees(90))
+                    .foregroundColor(.gray)
+                    .padding(.leading, 4)
             }
         }
         .padding()

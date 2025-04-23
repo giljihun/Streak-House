@@ -37,7 +37,7 @@ class PinnedStreaksViewModel: ObservableObject {
                         continue
                     }
 
-                    let cheeredUsers = data["cheeredUserIDs"] as? [String] ?? []
+                    let cheeredUsers = data["cheeredBy"] as? [String] ?? []
                     let isCheered = cheeredUsers.contains(userId)
 
                     db.collection("users").document(creatorId).getDocument { userDoc, error in
@@ -89,14 +89,13 @@ class PinnedStreaksViewModel: ObservableObject {
         let docRef = Firestore.firestore().collection("streaks").document(streakId)
 
         docRef.updateData([
-            "cheeredUserIDs": FieldValue.arrayUnion([userId]),
+            "cheeredBy": FieldValue.arrayUnion([userId]),
             "cheeredCount": FieldValue.increment(Int64(1))
         ]) { error in
             if let error = error {
                 print("❌ Cheer failed: \(error.localizedDescription)")
             } else {
                 print("✅ Cheer success")
-                // Reload the list to reflect new cheer state
                 self.fetchPinnedStreaks(for: userId)
             }
         }
