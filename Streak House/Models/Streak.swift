@@ -27,10 +27,24 @@ struct Streak: Identifiable, Codable {
     var cheeredCount: Int
     var iconColorHex: String
     
+    var cheeredBy: [String]? = []
+    var pinnedBy: [String]? = []
+    
     var isCompletedToday: Bool {
         guard let lastCheckedAt else {
             return false
         }
         return Calendar.current.isDateInToday(lastCheckedAt)
     }
+    
+    func isPinned(by userId: String) -> Bool {
+        return pinnedBy?.contains(userId) ?? false
+    }
+
+    func hasBeenCheered(by userId: String) -> Bool {
+        return cheeredBy?.contains(userId) ?? false
+    }
+
 }
+
+    

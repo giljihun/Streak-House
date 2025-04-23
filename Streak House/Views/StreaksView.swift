@@ -180,7 +180,7 @@ struct StreaksView: View {
                             streakCount: streak.streakCount,
                             isCheered: streak.isCheered,
                             onUnpin: {
-                                // TODO: Unpin action
+                                pinViewModel.unpin(streakId: streak.id)
                             },
                             onCheer: {
                                 pinViewModel.cheer(for: streak.id)

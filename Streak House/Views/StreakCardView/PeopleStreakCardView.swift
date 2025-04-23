@@ -12,6 +12,9 @@ struct PeopleStreakCardView: View {
     let isPinned: Bool
     let onPin: (Streak) -> Void
     let onCheer: (Streak) -> Void
+    
+    @State private var cheerScale = 1.0
+    @State private var pinScale = 1.0
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -56,6 +59,12 @@ struct PeopleStreakCardView: View {
                 VStack(spacing: 14) {
                     VStack(spacing: 2) {
                         Button(action: {
+                            withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
+                                pinScale = 1.2
+                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                                pinScale = 1.0
+                            }
                             onPin(streak)
                         }) {
                             HStack(spacing: 6) {
@@ -69,9 +78,16 @@ struct PeopleStreakCardView: View {
                             .foregroundColor(isPinned ? .blue : .gray)
                             .cornerRadius(12)
                         }
+                        .scaleEffect(pinScale)
                     }
 
                     Button(action: {
+                        withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
+                            cheerScale = 1.2
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                            cheerScale = 1.0
+                        }
                         onCheer(streak)
                     }) {
                         Label("Cheer", systemImage: "hands.clap.fill")
@@ -82,6 +98,7 @@ struct PeopleStreakCardView: View {
                             .background(Color.orange.opacity(0.15))
                             .cornerRadius(12)
                     }
+                    .scaleEffect(cheerScale)
                 }
             }
         }

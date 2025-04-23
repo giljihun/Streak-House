@@ -44,17 +44,21 @@ struct DiscoveryView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 12) {
                         if let currentUserUID = authViewModel.currentUser?.id {
-                            ForEach(viewModel.streaks.filter { $0.createdBy != currentUserUID }) { streak in
+                            let filteredStreaks = viewModel.streaks.filter { $0.createdBy != currentUserUID }
+                            ForEach(filteredStreaks) { streak in
                                 PeopleStreakCardView(
                                     streak: streak,
-                                    isPinned: authViewModel.currentUser?.pinnedStreakIDs.contains(streak.id ?? "") ?? false,
+                                    isPinned: streak.isPinned(by: currentUserUID),
                                     onPin: { streak in
-                                        // TODO: Add pin/unpin logic here
-                                        print("Pin tapped for \(streak.title)")
+                                        if let uid = authViewModel.currentUser?.id {
+                                            viewModel.togglePin(for: streak, currentUserId: uid)
+                                        }
                                     },
                                     onCheer: { streak in
-                                        // TODO: Add cheer logic here
-                                        print("Cheer tapped for \(streak.title)")
+                                        if let uid = authViewModel.currentUser?.id,
+                                           !streak.hasBeenCheered(by: uid) {
+                                            viewModel.cheerStreak(streak, currentUserId: uid)
+                                        }
                                     }
                                 )
                                 .padding(.horizontal, 16)

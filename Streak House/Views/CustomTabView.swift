@@ -59,7 +59,7 @@ struct CustomTabView: View {
                         Text("🔥 You Did It!")
                             .font(.title.bold())
 
-                        let displayStreakCount = max(1, streak.streakCount)
+                        let displayStreakCount = max(1, streak.streakCount + 1)
                         Text("You've kept this streak going for \(displayStreakCount) days!")
                             .multilineTextAlignment(.center)
                             .font(.subheadline)

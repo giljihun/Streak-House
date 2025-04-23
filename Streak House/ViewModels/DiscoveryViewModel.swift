@@ -56,4 +56,36 @@ class DiscoveryViewModel: ObservableObject {
                 }
             }
     }
+    
+    func togglePin(for streak: Streak, currentUserId: String) {
+        let userRef = Firestore.firestore().collection("users").document(currentUserId)
+        let streakRef = Firestore.firestore().collection("streaks").document(streak.id ?? "")
+        let isCurrentlyPinned = streak.pinnedBy?.contains(currentUserId) ?? false
+
+        userRef.updateData([
+            "pinnedStreakIDs": isCurrentlyPinned ?
+                FieldValue.arrayRemove([streak.id ?? ""]) :
+                FieldValue.arrayUnion([streak.id ?? ""])
+        ])
+
+        streakRef.updateData([
+            "pinnedCount": FieldValue.increment(isCurrentlyPinned ? Int64(-1) : 1),
+            "pinnedBy": isCurrentlyPinned ?
+                FieldValue.arrayRemove([currentUserId]) :
+                FieldValue.arrayUnion([currentUserId])
+        ])
+    }
+
+    func cheerStreak(_ streak: Streak, currentUserId: String) {
+        guard !(streak.cheeredBy?.contains(currentUserId) ?? false) else {
+            print("⚠️ Already cheered.")
+            return
+        }
+
+        let streakRef = Firestore.firestore().collection("streaks").document(streak.id ?? "")
+        streakRef.updateData([
+            "cheeredCount": FieldValue.increment(Int64(1)),
+            "cheeredBy": FieldValue.arrayUnion([currentUserId])
+        ])
+    }
 }

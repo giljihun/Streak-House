@@ -14,32 +14,31 @@ class PinnedStreaksViewModel: ObservableObject {
 
     func fetchPinnedStreaks(for userId: String) {
         let db = Firestore.firestore()
-        let userRef = db.collection("users").document(userId)
+        
+        db.collection("streaks")
+            .whereField("pinnedBy", arrayContains: userId)
+            .getDocuments { snapshot, error in
+                guard let documents = snapshot?.documents else {
+                    print("❌ Failed to fetch pinned streaks")
+                    return
+                }
 
-        userRef.getDocument { snapshot, error in
-            guard let data = snapshot?.data(),
-                  let pinnedIDs = data["pinnedStreakIDs"] as? [String] else {
-                print("❌ Failed to load pinnedStreakIDs")
-                return
-            }
+                let group = DispatchGroup()
+                var loadedStreaks: [PinnedStreak] = []
 
-            let group = DispatchGroup()
-            var loadedStreaks: [PinnedStreak] = []
+                for doc in documents {
+                    group.enter()
+                    
+                    let data = doc.data()
+                    guard let title = data["title"] as? String,
+                          let streakCount = data["streakCount"] as? Int,
+                          let creatorId = data["createdBy"] as? String else {
+                        group.leave()
+                        continue
+                    }
 
-            for id in pinnedIDs {
-                group.enter()
-                db.collection("streaks").document(id).getDocument { doc, error in
-                    defer { group.leave() }
-
-                    guard let doc = doc, doc.exists,
-                          let title = doc["title"] as? String,
-                          let streakCount = doc["streakCount"] as? Int else { return }
-
-                    let currentUserId = Auth.auth().currentUser?.uid ?? ""
-                    let cheeredUsers = doc["cheeredUserIDs"] as? [String] ?? []
-                    let isCheered = cheeredUsers.contains(currentUserId)
-
-                    guard let creatorId = doc["createdBy"] as? String else { return }
+                    let cheeredUsers = data["cheeredUserIDs"] as? [String] ?? []
+                    let isCheered = cheeredUsers.contains(userId)
 
                     db.collection("users").document(creatorId).getDocument { userDoc, error in
                         let creatorName = userDoc?["displayName"] as? String ?? "Unknown"
@@ -51,13 +50,35 @@ class PinnedStreaksViewModel: ObservableObject {
                             streakCount: streakCount,
                             isCheered: isCheered
                         )
+
                         loadedStreaks.append(streak)
+                        group.leave()
                     }
                 }
-            }
 
-            group.notify(queue: .main) {
-                self.pinnedStreaks = loadedStreaks
+                group.notify(queue: .main) {
+                    self.pinnedStreaks = loadedStreaks
+                }
+            }
+    }
+    
+    func unpin(streakId: String) {
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+
+        let streakRef = Firestore.firestore().collection("streaks").document(streakId)
+
+        Firestore.firestore().runTransaction({ transaction, errorPointer in
+            transaction.updateData([
+                "pinnedBy": FieldValue.arrayRemove([userId]),
+                "pinnedCount": FieldValue.increment(Int64(-1))
+            ], forDocument: streakRef)
+
+            return nil
+        }) { _, error in
+            if let error = error {
+                print("❌ Unpin failed: \(error)")
+            } else {
+                self.fetchPinnedStreaks(for: userId) // 리스트 갱신
             }
         }
     }
