@@ -6,15 +6,33 @@
 //
 
 import SwiftUI
+import FirebaseAuth
+import FirebaseFirestore
 
 struct PeopleStreakCardView: View {
     let streak: Streak
-    let isPinned: Bool
     let onPin: (Streak) -> Void
     let onCheer: (Streak) -> Void
     
     @State private var cheerScale = 1.0
     @State private var pinScale = 1.0
+    @State private var hasCheeredTemp: Bool
+    @State private var localPinCount: Int
+    @State private var didPin = false
+    @State private var showCheerAfterPin = false
+    
+    init(
+        streak: Streak,
+        isPinned: Bool,
+        onPin: @escaping (Streak) -> Void,
+        onCheer: @escaping (Streak) -> Void
+    ) {
+        self.streak = streak
+        self._hasCheeredTemp = State(initialValue: streak.hasBeenCheered(by: Auth.auth().currentUser?.uid ?? ""))
+        self._localPinCount = State(initialValue: streak.pinnedCount)
+        self.onPin = onPin
+        self.onCheer = onCheer
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -24,7 +42,7 @@ struct PeopleStreakCardView: View {
                     Image(systemName: "pin.fill")
                         .font(.system(size: 13))
                         .foregroundColor(.gray.opacity(0.6))
-                    Text(formatCount(streak.pinnedCount))
+                    Text(formatCount(localPinCount))
                         .font(.caption2)
                         .foregroundColor(.gray.opacity(0.6))
                 }
@@ -58,47 +76,62 @@ struct PeopleStreakCardView: View {
                 
                 VStack(spacing: 14) {
                     VStack(spacing: 2) {
-                        Button(action: {
-                            withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
-                                pinScale = 1.2
+                        if !streak.isPinned(by: Auth.auth().currentUser?.uid ?? "") && !didPin {
+                            Button(action: {
+                                withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
+                                    pinScale = 1.2
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                                    pinScale = 1.0
+                                    withAnimation {
+                                        didPin = true
+                                        showCheerAfterPin = true
+                                    }
+                                }
+                                onPin(streak)
+                            }) {
+                                HStack(spacing: 6) {
+                                    Image(systemName: "pin")
+                                    Text("Pin")
+                                }
+                                .font(.caption)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 6)
+                                .background(Color.gray.opacity(0.1))
+                                .foregroundColor(.gray)
+                                .cornerRadius(12)
                             }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                                pinScale = 1.0
-                            }
-                            onPin(streak)
-                        }) {
-                            HStack(spacing: 6) {
-                                Image(systemName: isPinned ? "pin.fill" : "pin")
-                                Text(isPinned ? "Pinned" : "Pin")
-                            }
-                            .font(.caption)
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 6)
-                            .background(isPinned ? Color.blue.opacity(0.15) : Color.gray.opacity(0.1))
-                            .foregroundColor(isPinned ? .blue : .gray)
-                            .cornerRadius(12)
+                            .scaleEffect(pinScale)
                         }
-                        .scaleEffect(pinScale)
                     }
 
-                    Button(action: {
-                        withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
-                            cheerScale = 1.2
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                            cheerScale = 1.0
-                        }
-                        onCheer(streak)
-                    }) {
-                        Label("Cheer", systemImage: "hands.clap.fill")
+                    if true {
+                        Button(action: {
+                            withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
+                                cheerScale = 1.2
+                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                                cheerScale = 1.0
+                            }
+                            hasCheeredTemp = true
+                            onCheer(streak)
+                        }) {
+                            Label(
+                                (hasCheeredTemp || streak.hasBeenCheered(by: Auth.auth().currentUser?.uid ?? "")) ? "Cheered!" : "Cheer",
+                                systemImage: "hands.clap.fill"
+                            )
                             .font(.caption)
-                            .foregroundColor(.orange)
+                            .foregroundColor((hasCheeredTemp || streak.hasBeenCheered(by: Auth.auth().currentUser?.uid ?? "")) ? .white : .orange)
                             .padding(.horizontal, 12)
                             .padding(.vertical, 6)
-                            .background(Color.orange.opacity(0.15))
+                            .background((hasCheeredTemp || streak.hasBeenCheered(by: Auth.auth().currentUser?.uid ?? "")) ? Color.orange : Color.orange.opacity(0.15))
                             .cornerRadius(12)
+                        }
+                        .scaleEffect(cheerScale)
+                        .disabled(hasCheeredTemp || streak.hasBeenCheered(by: Auth.auth().currentUser?.uid ?? ""))
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                        .offset(y: 8)
                     }
-                    .scaleEffect(cheerScale)
                 }
             }
         }
@@ -139,7 +172,7 @@ private func formatCount(_ count: Int) -> String {
             cheeredCount: 8,
             iconColorHex: "#FF9900"
         ),
-        isPinned: false,
+        isPinned: true,
         onPin: { _ in },
         onCheer: { _ in }
     )
