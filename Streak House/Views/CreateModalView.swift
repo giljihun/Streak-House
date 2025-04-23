@@ -9,19 +9,18 @@ import Combine
 
 struct CreateModalView: View {
     @Environment(\.presentationMode) var presentationMode
+    @StateObject var viewModel = CreateStreakViewModel()
     
     // MARK: - State
-    @State private var selectedCategory: String = "Study"
     @State private var goalText: String = ""
-    @State private var selectedTime: Date = Date()
-    @State private var iconColor: Color = .red
+    @State private var selectedAlarmTime: Date = Date()
     @State private var hourInput: String = "0"
     @State private var minuteInput: String = "30"
     @State private var isAlarmEnabled: Bool = false
     
     // MARK: - Icon 매핑
     var categoryIconName: String {
-        switch selectedCategory {
+        switch viewModel.selectedCategory {
         case "Study": return "book.fill"
         case "Health": return "figure.run"
         case "Creativity": return "paintbrush.fill"
@@ -48,7 +47,7 @@ struct CreateModalView: View {
                 .padding([.top, .bottom], 10)
                 
                 // MARK: - 카테고리 피커
-                Picker("Category", selection: $selectedCategory) {
+                Picker("Category", selection: $viewModel.selectedCategory) {
                     Text("Study").tag("Study")
                     Text("Health").tag("Health")
                     Text("Creativity").tag("Creativity")
@@ -71,9 +70,9 @@ struct CreateModalView: View {
                             Circle()
                                 .fill(color)
                                 .frame(width: 44, height: 44)
-                                .overlay(Circle().stroke(iconColor == color ? Color.black : Color.clear, lineWidth: 2))
+                                .overlay(Circle().stroke(viewModel.iconColor == color ? Color.black : Color.clear, lineWidth: 2))
                                 .onTapGesture {
-                                    iconColor = color
+                                    viewModel.iconColor = color
                                 }
                         }
                     }
@@ -85,11 +84,11 @@ struct CreateModalView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 36, height: 36)
-                            .foregroundColor(iconColor)
+                            .foregroundColor(viewModel.iconColor)
                             .padding(.horizontal, 4)
                         
                         ZStack {
-                            TextField("Typing your GOAL", text: $goalText)
+                            TextField("Typing your GOAL", text: $viewModel.goalText)
                                 .padding(.vertical, 10)
                                 .padding(.horizontal, 12)
                                 .background(Color(.systemGray5))
@@ -102,7 +101,7 @@ struct CreateModalView: View {
                     
                     // MARK: - 시간 입력
                     Text("🕒 How long in One day?")
-                    DatePicker("🕒 How long in one day?", selection: $selectedTime, displayedComponents: .hourAndMinute)
+                    DatePicker("🕒 How long in one day?", selection: $viewModel.selectedTime, displayedComponents: .hourAndMinute)
                         .datePickerStyle(.wheel)
                         .labelsHidden()
                         .scaleEffect(0.85)
@@ -112,16 +111,8 @@ struct CreateModalView: View {
                         .environment(\.locale, Locale(identifier: "en_GB"))
                     
                     // MARK: - 알람 시간 설정
-                    DatePicker("⏰ Alarm Time", selection: $selectedTime, displayedComponents: .hourAndMinute)
+                    DatePicker("⏰ Alarm Time", selection: $viewModel.selectedAlarmTime, displayedComponents: .hourAndMinute)
                         .datePickerStyle(.compact)
-                    
-                    if isAlarmEnabled {
-                        HStack {
-                            Spacer()
-                            DatePicker("", selection: $selectedTime, displayedComponents: .hourAndMinute)
-                            Spacer()
-                        }
-                    }
                 }
                 .padding()
                 .background(Color.white)
@@ -136,7 +127,13 @@ struct CreateModalView: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        presentationMode.wrappedValue.dismiss()
+                        viewModel.saveStreak { success in
+                            if success {
+                                presentationMode.wrappedValue.dismiss()
+                            } else {
+                                // 에러 처리 로직 추가 가능
+                            }
+                        }
                     }) {
                         Image(systemName: "arrow.right.circle.fill")
                             .resizable()

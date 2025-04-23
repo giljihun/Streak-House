@@ -19,15 +19,21 @@ struct FirestoreUser: Identifiable, Codable {
     var interests: [String]
     var joinedAt: Date
     var pinnedStreakIDs: [String] = []
+    var resolution: String
     
     init(id: String, email: String, displayName: String, photoURL: String? = nil) {
         self.id = id
         self.email = email
         self.displayName = displayName
+        
+        // TODO: - 애플계정 프로필 사진을 가져올 수 있을까?
         self.photoURL = photoURL
         self.didSelectInterests = false
         self.interests = []
         self.joinedAt = Date()
         self.pinnedStreakIDs = []
+        
+        // TODO: - 유저 결심 넣기
+        self.resolution = ""
     }
 }

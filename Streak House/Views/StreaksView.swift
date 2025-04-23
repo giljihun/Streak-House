@@ -5,15 +5,18 @@
 //  Created by 길지훈 on 4/18/25.
 //
 import SwiftUI
+import FirebaseAuth
 
 struct StreaksView: View {
     @Binding var selectedTab: Int
     @State private var showCreateModal = false
+    @StateObject var myViewModel = MyStreaksViewModel()
+    @StateObject var pinViewModel = PinnedStreaksViewModel()
+    
+    var emptyStreaks: Bool { myViewModel.myStreaks.isEmpty }
+    var emptyPinnedStreaks: Bool { pinViewModel.pinnedStreaks.isEmpty }
     
     var body: some View {
-        @State var emptyStreaks: Bool = true
-        @State var emptyPinnedStreaks: Bool = true
-        
         VStack(alignment: .leading, spacing: 0) {
             
             Text("Streaks")
@@ -50,13 +53,12 @@ struct StreaksView: View {
                             .sheet(isPresented: self.$showCreateModal) {
                                 CreateModalView()
                                     .presentationDragIndicator(.visible)
-                                    .presentationDetents([.medium])
+                                    .presentationDetents([.height(580)])
                             }
                         }
                     }
                     .padding([.horizontal, .vertical], 16)
                     
-                    // 아직 등록된 Streak이 없는 경우
                     if emptyStreaks {
                         HStack {
                             Spacer()
@@ -104,6 +106,12 @@ struct StreaksView: View {
                             
                             Spacer()
                         }
+                    } else {
+                        ForEach(myViewModel.myStreaks) { streak in
+                            MyStreakCardView(streak: streak)
+                                .padding(.horizontal, 16)
+                                .padding(.bottom, 12)
+                        }
                     }
                 }
                 
@@ -120,7 +128,6 @@ struct StreaksView: View {
                 }
                 .padding([.horizontal, .vertical], 16)
                 
-                // 아직 등록된 Pinned Streak이 없는 경우
                 if emptyPinnedStreaks {
                     HStack {
                         Spacer()
@@ -162,12 +169,35 @@ struct StreaksView: View {
                         
                         Spacer()
                     }
+                } else {
+                    ForEach(pinViewModel.pinnedStreaks) { streak in
+                        PinnedStreakCardView(
+                            creatorName: streak.creatorName,
+                            title: streak.title,
+                            streakCount: streak.streakCount,
+                            isCheered: streak.isCheered,
+                            onUnpin: {
+                                // TODO: Unpin action
+                            },
+                            onCheer: {
+                                pinViewModel.cheer(for: streak.id)
+                            }
+                        )
+                        .padding(.horizontal, 16)
+                        .padding(.bottom, 12)
+                    }
                 }
             }
             .frame(maxWidth: .infinity)
             .background(Color(#colorLiteral(red: 0.9756051898, green: 0.9805480838, blue: 0.9847753644, alpha: 1)))
         }
         //.padding(.bottom, 8)
+        .onAppear {
+            myViewModel.fetchMyStreaks()
+            if let uid = Auth.auth().currentUser?.uid {
+                pinViewModel.fetchPinnedStreaks(for: uid)
+            }
+        }
     }
 }
 

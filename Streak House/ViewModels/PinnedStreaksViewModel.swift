@@ -9,14 +9,6 @@ import SwiftUI
 import FirebaseFirestore
 import FirebaseAuth
 
-struct PinnedStreak: Identifiable {
-    var id: String
-    var title: String
-    var subtitle: String
-    var streakCount: Int
-    var isCheered: Bool
-}
-
 class PinnedStreaksViewModel: ObservableObject {
     @Published var pinnedStreaks: [PinnedStreak] = []
 
@@ -46,17 +38,29 @@ class PinnedStreaksViewModel: ObservableObject {
                     let currentUserId = Auth.auth().currentUser?.uid ?? ""
                     let cheeredUsers = doc["cheeredUserIDs"] as? [String] ?? []
                     let isCheered = cheeredUsers.contains(currentUserId)
-                    let subtitle = isCheered ? "Day \(streakCount) completed!" : "Fire it up!"
-                    let streak = PinnedStreak(
-                        id: doc.documentID,
-                        title: title,
-                        subtitle: subtitle,
-                        streakCount: streakCount,
-                        isCheered: isCheered
-                    )
-                    loadedStreaks.append(streak)
+
+                    guard let creatorId = doc["createdBy"] as? String else { return }
+
+                    db.collection("users").document(creatorId).getDocument { userDoc, error in
+                        let creatorName = userDoc?["displayName"] as? String ?? "Unknown"
+
+                        let streak = PinnedStreak(
+                            id: doc.documentID,
+                            title: title,
+                            creatorName: creatorName,
+                            streakCount: streakCount,
+                            isCheered: isCheered
+                        )
+                        loadedStreaks.append(streak)
+                    }
                 }
             }
+
+            group.notify(queue: .main) {
+                self.pinnedStreaks = loadedStreaks
+            }
+        }
+    }
 
     func cheer(for streakId: String) {
         guard let userId = Auth.auth().currentUser?.uid else { return }
@@ -73,12 +77,6 @@ class PinnedStreaksViewModel: ObservableObject {
                 print("✅ Cheer success")
                 // Reload the list to reflect new cheer state
                 self.fetchPinnedStreaks(for: userId)
-            }
-        }
-    }
-
-            group.notify(queue: .main) {
-                self.pinnedStreaks = loadedStreaks
             }
         }
     }

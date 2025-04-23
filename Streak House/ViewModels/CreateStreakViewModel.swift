@@ -12,6 +12,7 @@ class CreateStreakViewModel: ObservableObject {
     @Published var selectedCategory: String = "Study"
     @Published var goalText: String = ""
     @Published var selectedTime: Date = Date()
+    @Published var selectedAlarmTime: Date = Date()
     @Published var iconColor: Color = .red
     
     var categoryIconName: String {
@@ -33,12 +34,18 @@ class CreateStreakViewModel: ObservableObject {
         let newStreak = Streak(
             title: goalText,
             category: selectedCategory,
+            
             goalTime: Calendar.current.component(.hour, from: selectedTime) * 60 +
             Calendar.current.component(.minute, from: selectedTime),
+            
+            // TODO:  알림 시간 로직 수정. -> 노티용이기에 적절한 변형 필요
+            alarmTime: Calendar.current.component(.hour, from: selectedAlarmTime) * 60 +
+            Calendar.current.component(.minute, from: selectedAlarmTime),
+            
             icon: categoryIconName,
             createdAt: Date(),
             createdBy: userId,
-            lastCheckedAt: nil,
+            lastCheckedAt: Date(),
             streakCount: 0,
             pinnedCount: 0,
             cheeredCount: 0,

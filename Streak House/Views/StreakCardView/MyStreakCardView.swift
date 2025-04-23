@@ -14,7 +14,11 @@ struct MyStreakCardView: View {
         let hours = streak.goalTime / 60
         let minutes = streak.goalTime % 60
         if hours > 0 {
-            return "\(hours)h"
+            if minutes > 0 {
+                return "\(hours)h \(minutes)m"
+            } else {
+                return "\(hours)h"
+            }
         } else {
             return "\(minutes)m"
         }
@@ -81,15 +85,18 @@ struct MyStreakCardView: View {
                     Spacer()
                     
                     Button(action: {
+                        // TODO: 탭했을 때 로직 구현
+                        
+                        
                         print("Streak completed tapped")
                     }) {
                         HStack(spacing: 6) {
                             Image(systemName: "flame.fill")
                                 .font(.system(size: 18, weight: .bold))
-                                .foregroundColor(isCompleted ? .white : .orange)
+                                .foregroundColor(isCompleted ? .orange : .gray)
                             Text("\(streak.streakCount)")
                                 .font(.system(size: 16, weight: .bold))
-                                .foregroundColor(isCompleted ? .white : .orange)
+                                .foregroundColor(isCompleted ? .orange : .gray)
                         }
                         .padding(.horizontal, 14)
                         .padding(.vertical, 6)
@@ -124,6 +131,7 @@ private func formatCount(_ count: Int) -> String {
             title: "Morning Workout",
             category: "Exercise",
             goalTime: 120,
+            alarmTime: 1400,
             icon: "figure.run",
             createdAt: Date(),
             createdBy: "user123",

@@ -13,6 +13,7 @@ struct Streak: Identifiable, Codable {
     var title: String
     var category: String
     var goalTime: Int
+    var alarmTime: Int
     var icon: String
     var createdAt: Date
     // 소유자 UUID
