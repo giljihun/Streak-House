@@ -39,9 +39,10 @@ class UserViewModel: ObservableObject {
         }
     }
 
-    func fetchUserState() {
+    func fetchUserState(completion: @escaping () -> Void = {}) {
         guard let uid = Auth.auth().currentUser?.uid else {
             self.isLoading = false
+            completion()
             return
         }
         let docRef = Firestore.firestore().collection("users").document(uid)
@@ -54,6 +55,7 @@ class UserViewModel: ObservableObject {
                     self.didSelectInterests = false
                 }
                 self.isLoading = false
+                completion()
             }
         }
     }

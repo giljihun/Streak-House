@@ -22,6 +22,7 @@
 		4C3A7A3D2DB8C804005DAEA2 /* PinnedStreak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A7A3C2DB8C804005DAEA2 /* PinnedStreak.swift */; };
 		4C3A7A412DB92E4D005DAEA2 /* DiscoveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A7A402DB92E4D005DAEA2 /* DiscoveryViewModel.swift */; };
 		4C3A7A432DB92EF9005DAEA2 /* PeopleStreakCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A7A422DB92EF9005DAEA2 /* PeopleStreakCardView.swift */; };
+		4C3A7A452DBA1406005DAEA2 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A7A442DBA1406005DAEA2 /* SplashView.swift */; };
 		4CFD9E742DAFE6390011D191 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFD9E732DAFE6390011D191 /* FirebaseAnalytics */; };
 		4CFD9E762DAFE6390011D191 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFD9E752DAFE6390011D191 /* FirebaseAuth */; };
 		4CFD9E782DAFE6390011D191 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFD9E772DAFE6390011D191 /* FirebaseCore */; };
@@ -65,6 +66,7 @@
 		4C3A7A3C2DB8C804005DAEA2 /* PinnedStreak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinnedStreak.swift; sourceTree = "<group>"; };
 		4C3A7A402DB92E4D005DAEA2 /* DiscoveryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryViewModel.swift; sourceTree = "<group>"; };
 		4C3A7A422DB92EF9005DAEA2 /* PeopleStreakCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleStreakCardView.swift; sourceTree = "<group>"; };
+		4C3A7A442DBA1406005DAEA2 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		4CFD9E4D2DAFE0A90011D191 /* Streak House.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Streak House.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CFD9EF02DB237210011D191 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4CFD9EF22DB237210011D191 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 		4CFD9F012DB237210011D191 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4C3A7A442DBA1406005DAEA2 /* SplashView.swift */,
 				4CFD9EFD2DB237210011D191 /* LoginView.swift */,
 				4CFD9EFF2DB237210011D191 /* OnBoardingView.swift */,
 				4CFD9F182DB2A8750011D191 /* InterestsView */,
@@ -333,6 +336,7 @@
 				4CFD9F0E2DB237210011D191 /* ActivityView.swift in Sources */,
 				4C3A7A3B2DB8C636005DAEA2 /* MyStreaksViewModel.swift in Sources */,
 				4C3A7A282DB6AB42005DAEA2 /* KeyboardExtensions.swift in Sources */,
+				4C3A7A452DBA1406005DAEA2 /* SplashView.swift in Sources */,
 				4C3A7A432DB92EF9005DAEA2 /* PeopleStreakCardView.swift in Sources */,
 				4C3A7A332DB7FE03005DAEA2 /* MyStreakCardView.swift in Sources */,
 				4C3A7A372DB80EEE005DAEA2 /* ColorExtensions.swift in Sources */,
