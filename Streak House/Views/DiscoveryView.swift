@@ -5,7 +5,6 @@
 //  Created by 길지훈 on 4/18/25.
 //
 
-
 import SwiftUI
 import Firebase
 import FirebaseFirestore
@@ -44,7 +43,9 @@ struct DiscoveryView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 12) {
                         if let currentUserUID = authViewModel.currentUser?.id {
-                            let filteredStreaks = viewModel.streaks.filter { $0.createdBy != currentUserUID }
+                            let filteredStreaks = viewModel.streaks.filter {
+                                $0.createdBy != currentUserUID && $0.category == selectedCategory
+                            }
                             ForEach(filteredStreaks) { streak in
                                 PeopleStreakCardView(
                                     streak: streak,
