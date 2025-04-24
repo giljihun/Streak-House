@@ -20,10 +20,16 @@ struct ActivityView: View {
             ScrollView {
                 VStack(alignment: .leading) {
                     
+                    // TODO: - 노티 구현하고..
+                    Spacer(minLength: 200)
+                    
+                    Text("🚧 Coming Soon...\nThis page is under construction.")
+                        .font(.headline)
+                        .foregroundColor(.gray)
+                        .padding(.top, 100)
+                        .frame(maxWidth: .infinity, alignment: .center)
                     
                 }
-                Spacer(minLength: 50)
-                
             }
             .frame(maxWidth: .infinity)
             .background(Color(#colorLiteral(red: 0.9756051898, green: 0.9805480838, blue: 0.9847753644, alpha: 1)))

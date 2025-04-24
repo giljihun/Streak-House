@@ -28,8 +28,7 @@ struct PinnedStreakCardView: View {
                         .font(.system(size: 14, weight: .light))
                         .foregroundColor(.primary)
                 }
-
-                Text(isCheered ? "Day \(streakCount) completed!" : "Cheer them up!")
+                Text(isCheered ? "They feel your support!" : "Cheer On your Fellow!")
                     .font(.caption)
                     .foregroundColor(.gray)
             }
@@ -49,7 +48,7 @@ struct PinnedStreakCardView: View {
                     onCheer()
                 }) {
                     Text(isCheered ? "Cheered!" : "Cheer")
-                        .font(.subheadline)
+                        .font(.caption)
                         .foregroundColor(isCheered ? .gray : .orange)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 6)
@@ -75,8 +74,10 @@ struct PinnedStreakCardView: View {
             } label: {
                 Image(systemName: "ellipsis")
                     .rotationEffect(.degrees(90))
-                    .foregroundColor(.gray)
-                    .padding(.leading, 4)
+                            .foregroundColor(.gray)
+                            .padding(.leading, 8)
+                            .padding([.top, .bottom], 12) // 여유롭게 패딩 줌
+                            .contentShape(Rectangle()) // 실제 터치 영역을 넓혀줌
             }
         }
         .padding()
