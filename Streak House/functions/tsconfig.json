@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
-    "module": "NodeNext",
+    "target": "es2017",
+    "module": "commonjs",
     "esModuleInterop": true,
-    "moduleResolution": "nodenext",
+    "moduleResolution": "node",
     "noImplicitReturns": true,
     "noUnusedLocals": true,
-    "outDir": "lib",
-    "sourceMap": true,
     "strict": true,
-    "target": "es2017"
+    "sourceMap": true,
+    "outDir": "lib",
+    "skipLibCheck": true   // ✅ 타입 선언 라이브러리 오류 무시
   },
   "compileOnSave": true,
   "include": [
