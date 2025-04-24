@@ -21,6 +21,9 @@ struct FirestoreUser: Identifiable, Codable {
     var pinnedStreakIDs: [String] = []
     var resolution: String
     
+    // 사는 지역 ---> 왜냐면 스트릭 초기화 시간을 맞추기 위해
+    var timezone: String?
+    
     init(id: String, email: String, displayName: String, photoURL: String? = nil) {
         self.id = id
         self.email = email

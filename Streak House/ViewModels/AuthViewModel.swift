@@ -277,6 +277,9 @@ extension AuthViewModel: ASAuthorizationControllerDelegate {
                     } else {
                         do {
                             try docRef.setData(from: firestoreUser)
+                            // Save user's timezone after saving user info
+                            let currentTimeZone = TimeZone.current.identifier
+                            try docRef.setData(["timezone": currentTimeZone], merge: true)
                             print("✅ Firestore: 사용자 정보 저장 성공")
                         } catch {
                             print("❌ Firestore: 사용자 저장 실패 - \(error)")
@@ -356,6 +359,25 @@ extension AuthViewModel: ASAuthorizationControllerDelegate {
                             print("❌ Firestore 사용자 문서 삭제 실패: \(error.localizedDescription)")
                         } else {
                             print("✅ Firestore 사용자 문서 삭제 완료")
+                        }
+                        // Delete all streaks created by the user
+                        let streaksRef = Firestore.firestore().collection("streaks").whereField("createdBy", isEqualTo: uid)
+                        streaksRef.getDocuments { (querySnapshot, error) in
+                            if let error = error {
+                                print("❌ Failed to fetch user's streaks for deletion: \(error)")
+                            } else {
+                                let batch = Firestore.firestore().batch()
+                                querySnapshot?.documents.forEach { doc in
+                                    batch.deleteDocument(doc.reference)
+                                }
+                                batch.commit { batchError in
+                                    if let batchError = batchError {
+                                        print("❌ Failed to delete user's streaks: \(batchError)")
+                                    } else {
+                                        print("✅ All user's streaks deleted successfully")
+                                    }
+                                }
+                            }
                         }
                     }
                     

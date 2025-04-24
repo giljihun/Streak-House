@@ -62,7 +62,7 @@ struct PeopleStreakCardView: View {
                             Text("\(streak.streakCount)")
                                 .font(.headline.bold())
                                 .foregroundColor(.orange)
-                            Text("days strong")
+                            Text("days Streak 🔥")
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
                         }
@@ -130,7 +130,7 @@ struct PeopleStreakCardView: View {
                         .scaleEffect(cheerScale)
                         .disabled(hasCheeredTemp || streak.hasBeenCheered(by: Auth.auth().currentUser?.uid ?? ""))
                         .transition(.move(edge: .bottom).combined(with: .opacity))
-                        .offset(y: 8)
+                        .offset(y: 6)
                     }
                 }
             }
