@@ -11,7 +11,7 @@ import FirebaseFirestore
 
 struct DiscoveryView: View {
     
-    @State private var selectedCategory: String = "Study"
+    @Binding var selectedCategory: String
     @StateObject private var viewModel = DiscoveryViewModel()
     @EnvironmentObject var authViewModel: AuthViewModel
     
@@ -43,8 +43,9 @@ struct DiscoveryView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 12) {
                         if let currentUserUID = authViewModel.currentUser?.id {
-                            let filteredStreaks = viewModel.streaks.filter {
-                                $0.createdBy != currentUserUID && $0.category == selectedCategory
+                            let allStreaks = viewModel.streaks
+                            let filteredStreaks = allStreaks.filter { streak in
+                                streak.createdBy != currentUserUID && streak.category == selectedCategory
                             }
                             ForEach(filteredStreaks) { streak in
                                 PeopleStreakCardView(
@@ -76,10 +77,13 @@ struct DiscoveryView: View {
         .onAppear {
             viewModel.fetchStreaks(for: selectedCategory)
         }
+        .onChange(of: authViewModel.currentUser?.id) { _ in
+            viewModel.fetchStreaks(for: selectedCategory)
+        }
     }
 }
 
 #Preview {
-    DiscoveryView()
+    DiscoveryView(selectedCategory: .constant("Study"))
         .environmentObject(AuthViewModel())
 }

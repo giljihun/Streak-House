@@ -3,6 +3,8 @@ import SwiftUI
 struct CustomTabView: View {
     @State private var selectedTab = 0
     @EnvironmentObject var viewModel: AuthViewModel
+    @StateObject private var discoveryViewModel = DiscoveryViewModel()
+    @State private var selectedCategory = "Study"
 
     @State private var showCelebrate = false
     @State private var selectedStreak: Streak?
@@ -25,7 +27,8 @@ struct CustomTabView: View {
                 }
                 .tag(0)
 
-                DiscoveryView()
+                DiscoveryView(selectedCategory: $selectedCategory)
+                    .environmentObject(discoveryViewModel)
                     .tabItem {
                         Label("Discovery", systemImage: "fireplace.fill")
                     }
@@ -42,6 +45,15 @@ struct CustomTabView: View {
                         Label("My Profile", systemImage: "person.fill")
                     }
                     .tag(3)
+            }
+            .onChange(of: selectedTab) { newTab in
+                if newTab == 1 {
+                    
+                    selectedCategory = "Fun"
+                    selectedCategory = "Study"
+
+                    discoveryViewModel.fetchStreaks(for: "Study")
+                }
             }
 
             // MyStreak -> 스트릭 완료 표현

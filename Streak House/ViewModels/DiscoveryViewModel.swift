@@ -9,7 +9,9 @@ import Foundation
 import FirebaseFirestore
 
 class DiscoveryViewModel: ObservableObject {
+    @Published var selectedCategory: String = "All"
     @Published var streaks: [Streak] = []
+    @Published var isUpdating: Bool = false
 
     func fetchStreaks(for category: String) {
         let db = Firestore.firestore()
@@ -64,6 +66,7 @@ class DiscoveryViewModel: ObservableObject {
     }
     
     func togglePin(for streak: Streak, currentUserId: String) {
+        isUpdating = true
         let userRef = Firestore.firestore().collection("users").document(currentUserId)
         let streakRef = Firestore.firestore().collection("streaks").document(streak.id ?? "")
         let isCurrentlyPinned = streak.pinnedBy?.contains(currentUserId) ?? false
@@ -79,7 +82,18 @@ class DiscoveryViewModel: ObservableObject {
             "pinnedBy": isCurrentlyPinned ?
                 FieldValue.arrayRemove([currentUserId]) :
                 FieldValue.arrayUnion([currentUserId])
-        ])
+        ]) { error in
+            guard error == nil else {
+                print("❌ Firestore update failed: \(error!.localizedDescription)")
+                self.isUpdating = false
+                return
+            }
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                self.fetchStreaks(for: streak.category)
+                self.isUpdating = false
+            }
+        }
     }
 
     func cheerStreak(_ streak: Streak, currentUserId: String) {

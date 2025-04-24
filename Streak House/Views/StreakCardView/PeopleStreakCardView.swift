@@ -1,10 +1,3 @@
-//
-//  PeopleStreakCardView.swift
-//  Streak House
-//
-//  Created by 길지훈 on 4/23/25.
-//
-
 import SwiftUI
 import FirebaseAuth
 import FirebaseFirestore
@@ -14,12 +7,14 @@ struct PeopleStreakCardView: View {
     let onPin: (Streak) -> Void
     let onCheer: (Streak) -> Void
     
+    @State private var isUpdating = false
     @State private var cheerScale = 1.0
     @State private var pinScale = 1.0
     @State private var hasCheeredTemp: Bool
-    @State private var localPinCount: Int
     @State private var didPin = false
     @State private var showCheerAfterPin = false
+    @State private var cheerVisible = false
+    @State private var cheerOffset: CGFloat = 0
     
     init(
         streak: Streak,
@@ -29,12 +24,14 @@ struct PeopleStreakCardView: View {
     ) {
         self.streak = streak
         self._hasCheeredTemp = State(initialValue: streak.hasBeenCheered(by: Auth.auth().currentUser?.uid ?? ""))
-        self._localPinCount = State(initialValue: streak.pinnedCount)
         self.onPin = onPin
         self.onCheer = onCheer
     }
 
     var body: some View {
+        let currentUser = Auth.auth().currentUser?.uid ?? ""
+        let isCheered = hasCheeredTemp || streak.hasBeenCheered(by: currentUser)
+        
         VStack(alignment: .leading, spacing: 12) {
             HStack(alignment: .top, spacing: 12) {
                 
@@ -42,31 +39,30 @@ struct PeopleStreakCardView: View {
                     Image(systemName: "pin.fill")
                         .font(.system(size: 13))
                         .foregroundColor(.gray.opacity(0.6))
-                    Text(formatCount(localPinCount))
+                    Text(formatCount(streak.pinnedCount))
                         .font(.caption2)
                         .foregroundColor(.gray.opacity(0.6))
                 }
-                //.padding(.top, 4)
                 
                 HStack {
                     VStack(alignment: .leading, spacing: 2) {
                         Text("\(streak.creatorDisplayName ?? "Someone")'s")
-                            .font(.subheadline)
+                            .font(.caption)
                             .foregroundColor(.gray)
                         
                         Text(streak.title)
-                            .font(.headline.bold())
+                            .font(.subheadline.bold())
                             .foregroundColor(.primary)
 
                         HStack(spacing: 4) {
                             Text("\(streak.streakCount)")
-                                .font(.headline.bold())
+                                .font(.subheadline.bold())
                                 .foregroundColor(.orange)
-                            Text("days Streak 🔥")
+                            Text("days 🔥")
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
                         }
-                        .padding(.top, 6)
+                        .padding(.top, 8)
                     }
                     
                     Spacer()
@@ -74,38 +70,46 @@ struct PeopleStreakCardView: View {
                 
                 Spacer()
                 
-                VStack(spacing: 14) {
-                    VStack(spacing: 2) {
-                        if !streak.isPinned(by: Auth.auth().currentUser?.uid ?? "") && !didPin {
-                            Button(action: {
-                                withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
-                                    pinScale = 1.2
-                                }
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                                    pinScale = 1.0
-                                    withAnimation {
-                                        didPin = true
-                                        showCheerAfterPin = true
-                                    }
-                                }
-                                onPin(streak)
-                            }) {
-                                HStack(spacing: 6) {
-                                    Image(systemName: "pin")
-                                    Text("Pin")
-                                }
-                                .font(.caption)
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 6)
-                                .background(Color.gray.opacity(0.1))
-                                .foregroundColor(.gray)
-                                .cornerRadius(12)
-                            }
-                            .scaleEffect(pinScale)
-                        }
-                    }
+                VStack {
+                    Spacer(minLength: 0)
 
-                    if true {
+                    VStack(spacing: 14) {
+                        if !streak.isPinned(by: Auth.auth().currentUser?.uid ?? "") && !didPin {
+                            if isUpdating {
+                                ProgressView()
+                                    .scaleEffect(0.6)
+                                    .padding(.top, 8)
+                            } else {
+                                Button(action: {
+                                    isUpdating = true
+                                    onPin(streak)
+                                    withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
+                                        pinScale = 1.2
+                                    }
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                                        pinScale = 1.0
+                                        withAnimation(.easeInOut(duration: 0.8)) {
+                                            didPin = true
+                                            cheerOffset = -6
+                                        }
+                                        isUpdating = false
+                                    }
+                                }) {
+                                    HStack(spacing: 6) {
+                                        Image(systemName: "pin")
+                                        Text("Pin")
+                                    }
+                                    .font(.caption)
+                                    .padding(.horizontal, 12)
+                                    .padding(.vertical, 6)
+                                    .background(Color.gray.opacity(0.1))
+                                    .foregroundColor(.gray)
+                                    .cornerRadius(12)
+                                }
+                                .scaleEffect(pinScale)
+                            }
+                        }
+
                         Button(action: {
                             withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
                                 cheerScale = 1.2
@@ -117,22 +121,26 @@ struct PeopleStreakCardView: View {
                             onCheer(streak)
                         }) {
                             Label(
-                                (hasCheeredTemp || streak.hasBeenCheered(by: Auth.auth().currentUser?.uid ?? "")) ? "Cheered!" : "Cheer",
+                                isCheered ? "Cheered!" : "Cheer",
                                 systemImage: "hands.clap.fill"
                             )
                             .font(.caption)
-                            .foregroundColor((hasCheeredTemp || streak.hasBeenCheered(by: Auth.auth().currentUser?.uid ?? "")) ? .white : .orange)
+                            .foregroundColor(isCheered ? .white : .orange)
                             .padding(.horizontal, 12)
                             .padding(.vertical, 6)
-                            .background((hasCheeredTemp || streak.hasBeenCheered(by: Auth.auth().currentUser?.uid ?? "")) ? Color.orange : Color.orange.opacity(0.15))
+                            .background(isCheered ? Color.orange : Color.orange.opacity(0.15))
                             .cornerRadius(12)
                         }
                         .scaleEffect(cheerScale)
-                        .disabled(hasCheeredTemp || streak.hasBeenCheered(by: Auth.auth().currentUser?.uid ?? ""))
-                        .transition(.move(edge: .bottom).combined(with: .opacity))
-                        .offset(y: 6)
+                        .animation(.spring(response: 0.3, dampingFraction: 0.5), value: cheerScale)
+                        .disabled(isCheered)
+                        .offset(y: cheerOffset + (didPin ? 4 : 0))
+                        .animation(.easeInOut(duration: 0.8), value: cheerOffset)
                     }
+
+                    Spacer(minLength: 0)
                 }
+                .frame(maxHeight: .infinity)
             }
         }
         .padding()
@@ -146,8 +154,6 @@ struct PeopleStreakCardView: View {
 }
 
 private func formatCount(_ count: Int) -> String {
-    
-    // MARK: - 밀리언 단위도 추가?ㅋㅋ
     if count >= 1000 {
         let formatted = Double(count) / 1000
         return String(format: "%.1fk", formatted)
@@ -172,7 +178,7 @@ private func formatCount(_ count: Int) -> String {
             cheeredCount: 8,
             iconColorHex: "#FF9900"
         ),
-        isPinned: true,
+        isPinned: false,
         onPin: { _ in },
         onCheer: { _ in }
     )
