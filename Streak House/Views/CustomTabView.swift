@@ -36,7 +36,7 @@ struct CustomTabView: View {
 
                 ActivityView()
                     .tabItem {
-                        Label("Activity", systemImage: "sparkles")
+                        Label("Activity", systemImage: "newspaper.fill")
                     }
                     .tag(2)
 
