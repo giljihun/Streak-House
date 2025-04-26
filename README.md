@@ -1,6 +1,9 @@
 # Streak-House
 🛠️ C2
 
+![Animation - 1744812967700](https://github.com/user-attachments/assets/e35aa7f0-1f2b-4f2d-abdd-a911e0981091)
+
+
 ## 커밋컨벤션
 
 **`feat`**: 새로운 **기능 추가**
